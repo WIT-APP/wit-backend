@@ -8,13 +8,13 @@ export class ApplicantController {
   constructor(private readonly applicantService: ApplicantService) {}
 
   @Post()
-  create(@Body() createApplicantDto: CreateApplicantDto) {
-    return this.applicantService.create(createApplicantDto);
+  async create(@Body() createApplicantDto: CreateApplicantDto) {
+    return await this.applicantService.create(createApplicantDto);
   }
 
   @Get()
-  findAll() {
-    return this.applicantService.findAll();
+  async findAll() {
+    return await this.applicantService.findAll();
   }
 
   @Get(':id')

@@ -1,5 +1,6 @@
 import {  Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { TipoGenero, TipoId, TipoProgramaDeseado, TipoPermiso, TipoColectivo, TipoEducacion, TipoSituacionProfesional, TipoInteresesActuales, TipoAccessoInternetDispositivos, TipoEncontrarPrograma } from "./applicant.enums";
+import { IsDate, IsEmail } from "@nestjs/class-validator";
 
 @Entity()
 export class Applicant {
@@ -9,6 +10,7 @@ export class Applicant {
     @Column()
     nombre_apellidos: string;
 
+    @IsEmail()
     @Column({unique: true})
     correo_electronico: string;
 
@@ -18,6 +20,7 @@ export class Applicant {
     @Column({type: "enum", enum: TipoGenero})
     genero: TipoGenero;
 
+    @IsDate()
     @Column({type: "date"})
     fecha_de_nacimiento: Date;
 
@@ -27,13 +30,13 @@ export class Applicant {
     @Column({type:"enum", enum: TipoId})
     documento_de_identidad: TipoId;
 
-    @Column()
+    @Column({nullable: true})
     numero_DNI: string;
 
-    @Column()
+    @Column({nullable: true})
     numero_NIE: string;
 
-    @Column()
+    @Column({nullable: true})
     otro_documento: string;
 
     @Column()
@@ -51,7 +54,7 @@ export class Applicant {
     @Column({type:"enum", enum: TipoProgramaDeseado})
     programa_cursar: TipoProgramaDeseado;
     
-    @Column({type:"enum", enum:TipoPermiso})
+    @Column({type:"enum", enum:TipoPermiso, nullable: true})
     permiso: TipoPermiso;
 
     @Column({type:"enum", enum: TipoColectivo})
@@ -60,7 +63,7 @@ export class Applicant {
     @Column({type:"enum", enum: TipoEducacion})
     educacion: TipoEducacion;
 
-    @Column({type: "varchar"})
+    @Column({type: "varchar", nullable: true})
     estudio_mas_alto: string;
     
     @Column({ type:"enum", enum: TipoSituacionProfesional})
@@ -84,7 +87,7 @@ export class Applicant {
     @Column({type:"enum", enum: TipoEncontrarPrograma})
     encontrar_programa: TipoEncontrarPrograma;
 
-    @Column({type:"text"})
+    @Column({type:"text", nullable: true})
     mas_informacion: string;
 
 }

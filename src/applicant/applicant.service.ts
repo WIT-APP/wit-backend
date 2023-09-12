@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
 import { Repository } from 'typeorm';
@@ -8,15 +8,24 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class ApplicantService {
   constructor(
-    @InjectRepository(Applicant) private applicantRepository: Repository<Applicant>
-  ){}
+    @InjectRepository(Applicant)
+    private applicantRepository: Repository<Applicant>,
+  ) {}
 
-  create(createApplicantDto: CreateApplicantDto) {
-    return this.applicantRepository.save(createApplicantDto);
+  async create(createApplicantDto: CreateApplicantDto): Promise<Applicant> {
+    try {
+      return await this.applicantRepository.save(createApplicantDto);
+    } catch (error) {
+      throw new Error('Failed to submit form.');
+    }
   }
 
-  findAll() {
-    return `This action returns all applicant`;
+  async findAll(): Promise<Applicant[]> {
+    try {
+      return await this.applicantRepository.find();
+    } catch (error) {
+      throw new ForbiddenException();
+    }
   }
 
   findOne(id: number) {
