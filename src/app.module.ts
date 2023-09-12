@@ -6,7 +6,6 @@ import databaseConfig from "./config/database.config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ApplicantModule } from './applicant/applicant.module';
-import { ApplicantModule } from './applicant/applicant.module';
 
 @Module({
 	imports: [ConfigModule.forRoot({

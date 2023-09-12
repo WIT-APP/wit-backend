@@ -26,6 +26,7 @@ services:
     environment:
       MYSQL_DATABASE: wit
       MYSQL_ROOT_USERNAME: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
     ports:
       - '3306:3306' 
     expose:
