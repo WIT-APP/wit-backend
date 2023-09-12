@@ -9,7 +9,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./src:/app/src
+      - .:/app/src
       - ./nest-cli.json:/app/nest-cli.json
       - ./node_modules:/app/node_modules
     env_file:
