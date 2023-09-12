@@ -4,12 +4,12 @@ export class CreateApplicantDto {
     password: string;
     phoneNumber: number;
     gender: string;
-    birthdate: number;
+    birthdate: Date;
     idNumber: string;
     residenceAdress: string;
     residenceCity: string;
     residenceProvince: string;
-    zip: string;
+    zip: number;
     programmeChoose: string;
     spainPermission: string;
     colectiveGroup: string;
