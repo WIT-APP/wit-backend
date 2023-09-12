@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ApplicantService } from './applicant.service';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
+import { UpdateApplicantDto } from './dto/update-applicant.dto';
 
 @Controller('applicant')
 export class ApplicantController {
@@ -22,8 +23,8 @@ export class ApplicantController {
   }
 
   @Patch(':id')
-update(@Param('id') id: string, @Body() createApplicantDto: CreateApplicantDto) {
-  return this.applicantService.update(+id, createApplicantDto);
+  update(@Param('id') id: string, @Body() updateApplicantDto: UpdateApplicantDto) {
+  return this.applicantService.update(+id, updateApplicantDto);
 }
 
   @Delete(':id')

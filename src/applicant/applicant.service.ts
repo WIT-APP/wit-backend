@@ -1,10 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
+import { UpdateApplicantDto } from './dto/update-applicant.dto';
+import { Repository } from 'typeorm';
+import { Applicant } from './entities/applicant.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ApplicantService {
+  constructor(
+    @InjectRepository(Applicant) private applicantRepository: Repository<Applicant>
+  ){}
+
   create(createApplicantDto: CreateApplicantDto) {
-    return 'This action adds a new applicant';
+    return this.applicantRepository.save(createApplicantDto);
   }
 
   findAll() {
@@ -15,7 +23,7 @@ export class ApplicantService {
     return `This action returns a #${id} applicant`;
   }
 
-  update(id: number, createApplicantDto: CreateApplicantDto) {
+  update(id: number, updateApplicantDto: UpdateApplicantDto) {
     return `This action updates a #${id} applicant`;
   }
 
