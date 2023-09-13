@@ -1,6 +1,6 @@
 import {  Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { TipoGenero, TipoId, TipoProgramaDeseado, TipoPermiso, TipoColectivo, TipoEducacion, TipoSituacionProfesional, TipoInteresesActuales, TipoAccessoInternetDispositivos, TipoEncontrarPrograma } from "./applicant.enums";
-import { IsDate, IsEmail } from "@nestjs/class-validator";
+import { IsDate, IsEmail, Length } from "@nestjs/class-validator";
 
 @Entity()
 export class Applicant {
@@ -41,7 +41,8 @@ export class Applicant {
 
     @Column()
     provincia: string;
-
+    
+    @Length(5, 5)
     @Column()
     codigo_postal: number;
 
@@ -51,7 +52,7 @@ export class Applicant {
     @Column({type:"enum", enum:TipoPermiso, nullable: true})
     permiso: TipoPermiso;
 
-    @Column({type:"enum", enum: TipoColectivo})
+    @Column()
     colectivo: TipoColectivo;
 
     @Column({type:"enum", enum: TipoEducacion})

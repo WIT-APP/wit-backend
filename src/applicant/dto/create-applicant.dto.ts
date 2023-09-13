@@ -11,6 +11,7 @@ export class CreateApplicantDto {
     numero_documento_id: string;
     direccion: string;
     ciudad: string;
+    provincia: string;
     codigo_postal: number;
     programa_cursar: TipoProgramaDeseado;
     permiso?: TipoPermiso;
