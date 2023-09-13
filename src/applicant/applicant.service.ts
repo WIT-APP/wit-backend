@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
 import { Repository } from 'typeorm';
@@ -28,8 +28,13 @@ export class ApplicantService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} applicant`;
+  async findOneById(id: number): Promise<Applicant> {
+    try {
+      return await this.applicantRepository.findOne({ where: { id } });
+
+    } catch (error) {
+      throw new NotFoundException('User not found');
+    }
   }
 
   update(id: number, updateApplicantDto: UpdateApplicantDto) {

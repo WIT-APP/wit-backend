@@ -4,7 +4,7 @@ import { IsDate, IsEmail } from "@nestjs/class-validator";
 
 @Entity()
 export class Applicant {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn()    
     id: number;
 
     @Column()

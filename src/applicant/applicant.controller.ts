@@ -19,7 +19,7 @@ export class ApplicantController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.applicantService.findOne(+id);
+    return this.applicantService.findOneById(+id);
   }
 
   @Patch(':id')
