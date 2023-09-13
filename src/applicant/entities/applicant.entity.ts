@@ -30,14 +30,8 @@ export class Applicant {
     @Column({type:"enum", enum: TipoId})
     documento_de_identidad: TipoId;
 
-    @Column({nullable: true})
-    numero_DNI: string;
-
-    @Column({nullable: true})
-    numero_NIE: string;
-
-    @Column({nullable: true})
-    otro_documento: string;
+    @Column()
+    numero_documento_id: string;
 
     @Column()
     direccion: string;
@@ -72,8 +66,8 @@ export class Applicant {
     @Column({type:"enum", enum: TipoInteresesActuales})
     intereses_actuales: TipoInteresesActuales;
 
-    @Column({type: "varchar"})
-    dedicacion_semanal: string;
+    @Column()
+    dedicacion_semanal: number;
 
     @Column({type:"enum", enum: TipoAccessoInternetDispositivos})
     acceso_internet_dispositivos: TipoAccessoInternetDispositivos;

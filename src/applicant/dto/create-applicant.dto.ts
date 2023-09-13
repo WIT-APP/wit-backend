@@ -8,9 +8,7 @@ export class CreateApplicantDto {
     fecha_de_nacimiento: Date;
     pais_de_nacimiento: string;
     documento_de_identidad: TipoId;
-    numero_DNI?: string;
-    numero_NIE?: string;
-    otro_documento?: string;
+    numero_documento_id: string;
     direccion: string;
     ciudad: string;
     codigo_postal: number;
@@ -21,7 +19,7 @@ export class CreateApplicantDto {
     estudio_mas_alto?: string;
     situacion_profesional: TipoSituacionProfesional;
     intereses_actuales: TipoInteresesActuales;
-    dedicacion_semanal: string;
+    dedicacion_semanal: number;
     acceso_internet_dispositivos: TipoAccessoInternetDispositivos;
     formacion_online: boolean;
     razones_para_unir: string;
