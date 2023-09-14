@@ -1,12 +1,13 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('db', () => ({
-  type: 'mysql',
+  type: 'postgres',
   entities: ['dist/**/*.entity.js'],
   synchronize: true,
-  host: 'mysql',
-  port: '3306',
-  username: 'root',
-  database: 'wit',
-  logging: 'all',
+  url: 'postgres://nxxudfgi:2gXF-pVmoQZvS5N_sUEdUG0dO7kWxrYj@tai.db.elephantsql.com/nxxudfgi',
+  // port: '5432',
+  // username: 'nxxudfgi',
+  // password: '2gXF-pVmoQZvS5N_sUEdUG0dO7kWxrYj',
+  // database: 'wit',
+  logging: true,
 }));
