@@ -30,29 +30,52 @@ export class Applicant {
 
   @Column()
   telefono: number;
+  @Column()
+  telefono: number;
 
+  @Column({ type: 'enum', enum: TipoGenero })
+  genero: TipoGenero;
   @Column({ type: 'enum', enum: TipoGenero })
   genero: TipoGenero;
 
   @IsDate()
   @Column({ type: 'date' })
   fecha_de_nacimiento: Date;
+  @IsDate()
+  @Column({ type: 'date' })
+  fecha_de_nacimiento: Date;
 
+  @Column()
+  pais_de_nacimiento: string;
   @Column()
   pais_de_nacimiento: string;
 
   @Column({ type: 'enum', enum: TipoId })
   documento_de_identidad: TipoId;
+  @Column({ type: 'enum', enum: TipoId })
+  documento_de_identidad: TipoId;
 
+  @Column()
+  numero_documento_id: string;
   @Column()
   numero_documento_id: string;
 
   @Column()
   direccion: string;
+  @Column()
+  direccion: string;
 
   @Column()
   ciudad: string;
+  @Column()
+  ciudad: string;
 
+  @Column()
+  provincia: string;
+
+  @Length(5, 5)
+  @Column()
+  codigo_postal: number;
   @Column()
   provincia: string;
 
@@ -69,7 +92,7 @@ export class Applicant {
   @Column({ type: 'enum', enum: TipoPermiso, nullable: true })
   permiso: TipoPermiso;
 
-  @Column('simple-array')
+  @Column('text', {array: true, default: {}})
   colectivo: string[];
 
   @Column({ type: 'enum', enum: TipoEducacion })
