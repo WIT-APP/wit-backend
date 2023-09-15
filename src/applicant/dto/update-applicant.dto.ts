@@ -17,7 +17,7 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
     codigo_postal?: number;
     programa_cursar?: TipoProgramaDeseado;
     permiso?: TipoPermiso;
-    colectivo?: TipoColectivo;
+    colectivo?: string[];
     educacion?: TipoEducacion;
     estudio_mas_alto?: string;
     situacion_profesional?: TipoSituacionProfesional;

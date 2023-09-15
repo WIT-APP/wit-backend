@@ -63,8 +63,8 @@ export class Applicant {
   @Column({ type: 'enum', enum: TipoPermiso, nullable: true })
   permiso: TipoPermiso;
 
-  @Column()
-  colectivo: TipoColectivo;
+  @Column('text', {array: true, default: {}})
+  colectivo: string[];
 
   @Column({ type: 'enum', enum: TipoEducacion })
   educacion: TipoEducacion;
