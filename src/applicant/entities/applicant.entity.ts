@@ -10,6 +10,7 @@ import {
   TipoInteresesActuales,
   TipoAccessoInternetDispositivos,
   TipoEncontrarPrograma,
+  TipoEstado,
 } from './applicant.enums';
 import { IsDate, IsEmail, Length } from '@nestjs/class-validator';
 
@@ -30,6 +31,9 @@ export class Applicant {
 
   @Column()
   telefono: number;
+
+  @Column({ type: 'enum', enum: TipoEstado, default: TipoEstado.aplicante })
+  estado: TipoEstado;
 
   @Column({ type: 'enum', enum: TipoGenero })
   genero: TipoGenero;
@@ -69,7 +73,7 @@ export class Applicant {
   @Column({ type: 'enum', enum: TipoPermiso, nullable: true })
   permiso: TipoPermiso;
 
-  @Column('text', {array: true, default: {}})
+  @Column('text', { array: true, default: {} })
   colectivo: string[];
 
   @Column({ type: 'enum', enum: TipoEducacion })

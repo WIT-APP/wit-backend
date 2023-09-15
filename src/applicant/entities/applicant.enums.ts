@@ -1,3 +1,12 @@
+export enum TipoEstado {
+  aplicante = 'Aplicante',
+  invitado = 'Invitado',
+  entrevistado = 'Entrevistado',
+  matriculado = 'Matriculado',
+  certificado = 'Certificado',
+  baja = 'Baja',
+}
+
 export enum TipoGenero {
   hombre = 'Hombre',
   mujer = 'Mujer',
