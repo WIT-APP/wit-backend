@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('db', () => ({
+<<<<<<< HEAD
   type: 'mysql',
   entities: ['dist/**/*.entity.js'],
   synchronize: true,
@@ -11,3 +12,11 @@ export default registerAs('db', () => ({
   database: process.env.DB_DATABASE,
   logging: "all"
 }));
+=======
+  type: 'postgres',
+  entities: ['dist/**/*.entity.js'],
+  synchronize: true,
+  url: process.env.URL_DATABASE,
+  logging: true,
+}));
+>>>>>>> database
