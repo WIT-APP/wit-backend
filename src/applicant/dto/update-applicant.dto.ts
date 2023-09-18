@@ -14,7 +14,8 @@ import {
 } from '../entities/applicant.enums';
 
 export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
-  nombre_apellidos?: string;
+  nombre?: string;
+  apellidos?: string;
   correo_electronico?: string;
   telefono?: number;
   estado?: string;

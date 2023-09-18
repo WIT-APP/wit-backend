@@ -22,7 +22,10 @@ export class Applicant {
   fecha_de_applicacion: Date;
 
   @Column()
-  nombre_apellidos: string;
+  nombre: string;
+
+  @Column()
+  apellidos: string;
 
   @IsEmail()
   @Column()
@@ -31,8 +34,11 @@ export class Applicant {
   @Column()
   telefono: number;
 
-  @Column({ type: 'enum', enum: TipoEstado, default: TipoEstado.aplicante })
-  estado: TipoEstado;
+/*   @Column({ type: 'enum', enum: TipoEstado, default: TipoEstado.Aplicante })
+  estado: TipoEstado; */
+
+  @Column({default: 'Aplicante'})
+  estado: string;
 
   @Column({ type: 'enum', enum: TipoGenero })
   genero: TipoGenero;

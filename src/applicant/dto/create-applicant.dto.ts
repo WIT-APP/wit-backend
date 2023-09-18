@@ -14,7 +14,10 @@ import {
 
 export class CreateApplicantDto {
   @IsNotEmpty()
-  nombre_apellidos: string;
+  nombre: string;
+
+  @IsNotEmpty()
+  apellidos: string;
 
   @IsNotEmpty()
   correo_electronico: string;

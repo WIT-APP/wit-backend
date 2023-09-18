@@ -1,4 +1,11 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
 import { Repository } from 'typeorm';
@@ -30,11 +37,66 @@ export class ApplicantService {
 
   async findOneById(id: number): Promise<Applicant> {
     try {
-      return await this.applicantRepository.findOne({ where: { id } });
+      const applicant = await this.applicantRepository.findOne({
+        where: { id },
+      });
 
+      if (!applicant) {
+        throw new NotFoundException('Usuario no encontrado');
+      }
+
+      return applicant;
     } catch (error) {
-      throw new NotFoundException('User not found');
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException('Usuario no encontrado');
+      } else {
+        throw new InternalServerErrorException(
+          'Error al recuperar el solicitante',
+        );
+      }
     }
+  }
+
+  async findOneByEmail(email: string): Promise<Applicant> {
+    const applicant = await this.applicantRepository.findOne({ where: { correo_electronico: email } });
+    if (!applicant) {
+      throw new HttpException(
+        'No se encontraron candidato con este correo electrónico.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    
+    return applicant
+  }
+
+  async findByEstado(estado: string): Promise<Applicant[]> {
+    const applicants = await this.applicantRepository.find({
+      where: { estado },
+    });
+
+    if (!applicants || applicants.length === 0) {
+      throw new HttpException(
+        'No se encontraron candidatos para el estado dado.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return applicants;
+  }
+
+  async findByResidence(residencia: string): Promise<Applicant[]> {
+    const applicants = await this.applicantRepository.find({
+      where: { pais_de_residencia: residencia },
+    });
+
+    if (!applicants || applicants.length === 0) {
+      throw new HttpException(
+        'No se encontraron solicitantes para el pais de residencia especificada.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return applicants;
   }
 
   update(id: number, updateApplicantDto: UpdateApplicantDto) {
