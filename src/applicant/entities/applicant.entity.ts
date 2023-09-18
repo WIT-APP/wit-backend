@@ -4,7 +4,6 @@ import {
   TipoId,
   TipoProgramaDeseado,
   TipoPermiso,
-  TipoColectivo,
   TipoEducacion,
   TipoSituacionProfesional,
   TipoInteresesActuales,
