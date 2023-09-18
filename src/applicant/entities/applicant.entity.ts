@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import {
   TipoGenero,
+  TipoId,
   TipoProgramaDeseado,
   TipoPermiso,
   TipoEducacion,
@@ -43,8 +44,8 @@ export class Applicant {
   @Column()
   pais_de_nacimiento: string;
 
-  @Column()
-  documento_de_identidad: string;
+  @Column({ type: 'enum', enum: TipoId })
+  documento_de_identidad: TipoId;
 
   @Column()
   numero_documento_id: string;
