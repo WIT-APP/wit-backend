@@ -42,20 +42,19 @@ export class ApplicantController {
 
   // !! GET methods w/ FILTER
 
-  @Get('/filter-by-estado/:estado')
+  @Get('filter-by-estado/:estado')
   async filterByEstado(@Param('estado') estado: string): Promise<Applicant[]> {
     return this.applicantService.findByEstado(estado);
   }
+
 
   @Get('residence/espana')
   async getByResidenceSpain() {
     return this.applicantService.findByResidence('España');
   }
 
-  @Get('residence/:pais-de-residencia')
-  async getByResidence(
-    @Param('pais_de_residencia') pais_de_residencia: string,
-  ) {
+  @Get('residence/:pais_de_residencia')
+  async getByResidence(@Param('pais_de_residencia') pais_de_residencia: string) {
     return this.applicantService.findByResidence(pais_de_residencia);
   }
 

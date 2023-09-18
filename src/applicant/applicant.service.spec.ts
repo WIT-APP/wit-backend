@@ -390,7 +390,7 @@ describe('ApplicantService', () => {
       } catch (error) {
         expect(error).toBeInstanceOf(HttpException);
         expect(error.response).toEqual(
-          'No se encontraron candidatos para el estado dado.',
+          'No se encontraron personas para el estado dado.',
         );
         expect(error.getStatus()).toBe(HttpStatus.NOT_FOUND);
       }

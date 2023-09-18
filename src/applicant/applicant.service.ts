@@ -58,15 +58,17 @@ export class ApplicantService {
   }
 
   async findOneByEmail(email: string): Promise<Applicant> {
-    const applicant = await this.applicantRepository.findOne({ where: { correo_electronico: email } });
+    const applicant = await this.applicantRepository.findOne({
+      where: { correo_electronico: email },
+    });
     if (!applicant) {
       throw new HttpException(
         'No se encontraron candidato con este correo electrónico.',
         HttpStatus.NOT_FOUND,
       );
     }
-    
-    return applicant
+
+    return applicant;
   }
 
   async findByEstado(estado: string): Promise<Applicant[]> {
@@ -74,9 +76,9 @@ export class ApplicantService {
       where: { estado },
     });
 
-    if (!applicants || applicants.length === 0) {
+    if (applicants.length === 0) {
       throw new HttpException(
-        'No se encontraron candidatos para el estado dado.',
+        'No se encontraron personas para el estado dado.',
         HttpStatus.NOT_FOUND,
       );
     }
@@ -84,9 +86,9 @@ export class ApplicantService {
     return applicants;
   }
 
-  async findByResidence(residencia: string): Promise<Applicant[]> {
+  async findByResidence(pais_de_residencia: string): Promise<Applicant[]> {
     const applicants = await this.applicantRepository.find({
-      where: { pais_de_residencia: residencia },
+      where: { pais_de_residencia },
     });
 
     if (!applicants || applicants.length === 0) {
