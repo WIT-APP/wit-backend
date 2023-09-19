@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository, getManager } from 'typeorm';
 import { Applicant } from './entities/applicant.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -36,7 +36,7 @@ export class ApplicantService {
     }
   }
 
-  async findOneById(id: number): Promise<Applicant> {
+   async findOneById(id: number): Promise<Applicant> {
     try {
       const applicant = await this.applicantRepository.findOne({
         where: { id },
@@ -56,9 +56,9 @@ export class ApplicantService {
         );
       }
     }
-  }
-
-  async findOneByEmail(email: string): Promise<Applicant> {
+  }  
+ 
+  async findByEmail(email: string): Promise<Applicant> {
     const applicant = await this.applicantRepository.findOne({
       where: { correo_electronico: email },
     });
@@ -70,7 +70,7 @@ export class ApplicantService {
     }
 
     return applicant;
-  }
+  } 
 
   async findByEstado(estado: string): Promise<Applicant[]> {
     const applicants = await this.applicantRepository.find({
@@ -102,30 +102,29 @@ export class ApplicantService {
     return applicants;
   }
 
+
+
   async getDuplicateEmails(): Promise<any[]> {
     try {
-      const duplicateEmails = await this.applicantRepository.query(`
-      SELECT correo_electronico
-      FROM applicant
-      GROUP BY correo_electronico
-      HAVING COUNT(correo_electronico) > 1
-      `);
+      const queryResult = await this.applicantRepository
+        .createQueryBuilder('a1')
+        .select(['a1.*'])
+        .addSelect('a1.correo_electronico')
+        .innerJoin(
+          'applicant',
+          'a2',
+          'a1.id <> a2.id AND a1.correo_electronico = a2.correo_electronico',
+        )
+        .groupBy('a1.correo_electronico, a1.id')
+        .orderBy('a1.fecha_de_applicacion', 'DESC')
+        .getRawMany();
 
-      console.log(duplicateEmails)
-      const duplicateApplicants: any[] = [];
-      for (const email of duplicateEmails) {
-        const applicants = await this.applicantRepository.find({
-          where: { correo_electronico: email.correo_electronico },
-          order: { fecha_de_applicacion: 'DESC' },
-        });
-        duplicateApplicants.push({ email: email.correo_electronico, applicants });
-      }
-
-      return duplicateApplicants;
+      return queryResult;
     } catch (error) {
       throw new ConflictException('Error al recuperar los correos electrónicos duplicados.');
     }
   }
+
 
   update(id: number, updateApplicantDto: UpdateApplicantDto) {
     return `This action updates a #${id} applicant`;
