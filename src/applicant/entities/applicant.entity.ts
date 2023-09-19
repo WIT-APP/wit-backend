@@ -34,14 +34,12 @@ export class Applicant {
   @Column()
   telefono: number;
 
-/*   @Column({ type: 'enum', enum: TipoEstado, default: TipoEstado.Aplicante })
-  estado: TipoEstado; */
 
   @Column({default: 'Aplicante'})
   estado: string;
 
-  @Column({ type: 'enum', enum: TipoGenero })
-  genero: TipoGenero;
+  @Column()
+  genero: string;
 
   @IsDate()
   @Column({ type: 'date' })
@@ -50,8 +48,8 @@ export class Applicant {
   @Column()
   pais_de_nacimiento: string;
 
-  @Column({ type: 'enum', enum: TipoId })
-  documento_de_identidad: TipoId;
+  @Column()
+  documento_de_identidad: string;
 
   @Column()
   numero_documento_id: string;
@@ -72,32 +70,32 @@ export class Applicant {
   @Column()
   pais_de_residencia: string;
 
-  @Column({ type: 'enum', enum: TipoProgramaDeseado })
-  programa_cursar: TipoProgramaDeseado;
+  @Column()
+  programa_cursar: string;
 
-  @Column({ type: 'enum', enum: TipoPermiso, nullable: true })
-  permiso: TipoPermiso;
+  @Column({ nullable: true })
+  permiso: string;
 
   @Column('text', { array: true, default: {} })
   colectivo: string[];
 
-  @Column({ type: 'enum', enum: TipoEducacion })
-  educacion: TipoEducacion;
+  @Column()
+  educacion: string;
 
   @Column({ type: 'varchar', nullable: true })
   estudio_mas_alto: string;
 
-  @Column({ type: 'enum', enum: TipoSituacionProfesional })
-  situacion_profesional: TipoSituacionProfesional;
+  @Column()
+  situacion_profesional: string;
 
-  @Column({ type: 'enum', enum: TipoInteresesActuales })
-  intereses_actuales: TipoInteresesActuales;
+  @Column()
+  intereses_actuales: string;
 
   @Column()
   dedicacion_semanal: number;
 
-  @Column({ type: 'enum', enum: TipoAccessoInternetDispositivos })
-  acceso_internet_dispositivos: TipoAccessoInternetDispositivos;
+  @Column()
+  acceso_internet_dispositivos: string;
 
   @Column({ type: 'boolean' })
   formacion_online: boolean;
@@ -105,8 +103,8 @@ export class Applicant {
   @Column({ type: 'text' })
   razones_para_unir: string;
 
-  @Column({ type: 'enum', enum: TipoEncontrarPrograma })
-  encontrar_programa: TipoEncontrarPrograma;
+  @Column()
+  encontrar_programa: string;
 
   @Column({ type: 'text', nullable: true })
   mas_informacion: string;
