@@ -51,7 +51,7 @@ export class Applicant {
   @Column()
   documento_de_identidad: string;
 
-  @Column()
+  @Column({nullable: true})
   tipo_documento_identidad: string;
 
   @Column()

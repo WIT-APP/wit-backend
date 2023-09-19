@@ -111,6 +111,7 @@ export class ApplicantService {
       HAVING COUNT(correo_electronico) > 1
       `);
 
+      console.log(duplicateEmails)
       const duplicateApplicants: any[] = [];
       for (const email of duplicateEmails) {
         const applicants = await this.applicantRepository.find({
