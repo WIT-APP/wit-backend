@@ -2,9 +2,9 @@ export enum TypeField {
     Email = "email",
     Text = "text",
     Select = "select",
-    Option = "option",
     Checkbox = "checkbox",
     Textarea = "textarea",
+    Date = "date",
 }
 
 export enum TypeCategory {
