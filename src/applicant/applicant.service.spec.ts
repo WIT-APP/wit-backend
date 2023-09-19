@@ -309,7 +309,7 @@ describe('ApplicantService', () => {
 
       await expect(service.findOneByEmail(email)).rejects.toThrowError(
         new HttpException(
-          'No se encontraron candidato con este correo electrónico.',
+          'No se encontró candidato con este correo electrónico.',
           HttpStatus.NOT_FOUND,
         ),
       );
@@ -390,7 +390,7 @@ describe('ApplicantService', () => {
       } catch (error) {
         expect(error).toBeInstanceOf(HttpException);
         expect(error.response).toEqual(
-          'No se encontraron personas para el estado dado.',
+          'No se encontraron personas en este estado.',
         );
         expect(error.getStatus()).toBe(HttpStatus.NOT_FOUND);
       }
@@ -423,7 +423,7 @@ describe('ApplicantService', () => {
 
       await expect(service.findByResidence(residence)).rejects.toThrowError(
         new HttpException(
-          'No se encontraron solicitantes para el pais de residencia especificada.',
+          'No se encontraron solicitantes para el pais de residencia especificado.',
           HttpStatus.NOT_FOUND,
         ),
       );

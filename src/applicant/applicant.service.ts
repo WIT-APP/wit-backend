@@ -63,7 +63,7 @@ export class ApplicantService {
     });
     if (!applicant) {
       throw new HttpException(
-        'No se encontraron candidato con este correo electrónico.',
+        'No se encontró candidato con este correo electrónico.',
         HttpStatus.NOT_FOUND,
       );
     }
@@ -78,7 +78,7 @@ export class ApplicantService {
 
     if (applicants.length === 0) {
       throw new HttpException(
-        'No se encontraron personas para el estado dado.',
+        'No se encontraron personas en este estado.',
         HttpStatus.NOT_FOUND,
       );
     }
@@ -93,7 +93,7 @@ export class ApplicantService {
 
     if (!applicants || applicants.length === 0) {
       throw new HttpException(
-        'No se encontraron solicitantes para el pais de residencia especificada.',
+        'No se encontraron solicitantes para el pais de residencia especificado.',
         HttpStatus.NOT_FOUND,
       );
     }
