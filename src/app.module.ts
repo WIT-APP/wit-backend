@@ -6,6 +6,7 @@ import databaseConfig from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ApplicantModule } from './applicant/applicant.module';
+import { QuestionModule } from './question/question.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ApplicantModule } from './applicant/applicant.module';
     }),
     UserModule,
     ApplicantModule,
+    QuestionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

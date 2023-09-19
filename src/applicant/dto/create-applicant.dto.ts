@@ -56,7 +56,7 @@ export class CreateApplicantDto {
   pais_de_residencia: string;
 
   @IsNotEmpty()
-  programa_cursar: TipoProgramaDeseado;
+  programa_cursar: string;
 
   permiso?: TipoPermiso;
 
