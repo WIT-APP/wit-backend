@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   ForbiddenException,
   HttpException,
   HttpStatus,
@@ -99,6 +100,30 @@ export class ApplicantService {
     }
 
     return applicants;
+  }
+
+  async getDuplicateEmails(): Promise<any[]> {
+    try {
+      const duplicateEmails = await this.applicantRepository.query(`
+      SELECT correo_electronico
+      FROM applicant
+      GROUP BY correo_electronico
+      HAVING COUNT(correo_electronico) > 1
+      `);
+
+      const duplicateApplicants: any[] = [];
+      for (const email of duplicateEmails) {
+        const applicants = await this.applicantRepository.find({
+          where: { correo_electronico: email.correo_electronico },
+          order: { fecha_de_applicacion: 'DESC' },
+        });
+        duplicateApplicants.push({ email: email.correo_electronico, applicants });
+      }
+
+      return duplicateApplicants;
+    } catch (error) {
+      throw new ConflictException('Error al recuperar los correos electrónicos duplicados.');
+    }
   }
 
   update(id: number, updateApplicantDto: UpdateApplicantDto) {

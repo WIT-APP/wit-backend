@@ -4,6 +4,7 @@ import { ApplicantService } from './applicant.service';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { TipoAccessoInternetDispositivos, TipoColectivo, TipoEducacion, TipoEncontrarPrograma, TipoGenero, TipoId, TipoInteresesActuales, TipoProgramaDeseado, TipoSituacionProfesional } from './entities/applicant.enums';
 import { Applicant } from './entities/applicant.entity';
+import { ConflictException } from '@nestjs/common';
 
 describe('ApplicantController', () => {
   let controller: ApplicantController;
@@ -17,6 +18,7 @@ describe('ApplicantController', () => {
     findByEstado: jest.fn(),
     findByResidence: jest.fn(),
     findOneByEmail: jest.fn(),
+    getDuplicateEmails: jest.fn(),
   }
 
     const createApplicantDto: CreateApplicantDto = {
@@ -332,5 +334,24 @@ describe('getByResidence', () => {
     expect(mockApplicantService.findByResidence).toHaveBeenCalledWith(residence);
   });
 });
+/* describe('getDuplicateEmails', () => {
+  it('should return duplicate emails from the service', async () => {
+    const duplicateEmails = [{ email: 'duplicate1@example.com' }, { email: 'duplicate2@example.com' }];
+    mockApplicantService.getDuplicateEmails.mockResolvedValue(duplicateEmails);
+
+    const result = await controller.getDuplicateEmails();
+
+    expect(result).toEqual(duplicateEmails);
+    expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
+  });
+
+  it('should throw a ConflictException if the service throws an error', async () => {
+    mockApplicantService.getDuplicateEmails.mockRejectedValue(new Error('Some error'));
+
+    await expect(controller.getDuplicateEmails()).rejects.toThrowError(ConflictException);
+    expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
+  });
+}); */
+
 });
 

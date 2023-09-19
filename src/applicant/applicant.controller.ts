@@ -21,7 +21,7 @@ export class ApplicantController {
   async create(@Body() createApplicantDto: CreateApplicantDto) {
     return await this.applicantService.create(createApplicantDto);
   }
-  
+
   @Get()
   async findAll() {
     return await this.applicantService.findAll();
@@ -55,6 +55,11 @@ export class ApplicantController {
   @Get('residence/:pais_de_residencia')
   async getByResidence(@Param('pais_de_residencia') pais_de_residencia: string) {
     return this.applicantService.findByResidence(pais_de_residencia);
+  }
+
+  @Get('getDuplicateEmails')
+  async getDuplicateEmails() {
+    return this.applicantService.getDuplicateEmails();
   }
 
   @Patch(':id')

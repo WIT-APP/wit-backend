@@ -25,6 +25,8 @@ export class CreateApplicantDto {
   @IsNotEmpty()
   documento_de_identidad: string;
 
+  tipo_documento_identidad?: string;
+
   @IsNotEmpty()
   numero_documento_id: string;
 

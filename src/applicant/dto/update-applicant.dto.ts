@@ -12,6 +12,7 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
   fecha_de_nacimiento?: Date;
   pais_de_nacimiento?: string;
   documento_de_identidad?: string;
+  tipo_documento_identidad?: string;
   numero_documento_id?: string;
   direccion?: string;
   ciudad?: string;
