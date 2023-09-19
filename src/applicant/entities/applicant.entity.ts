@@ -52,6 +52,9 @@ export class Applicant {
   documento_de_identidad: string;
 
   @Column()
+  tipo_documento_identidad: string;
+
+  @Column()
   numero_documento_id: string;
 
   @Column()

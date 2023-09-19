@@ -15,6 +15,7 @@ import {
   TipoEncontrarPrograma,
 } from './entities/applicant.enums';
 import {
+  ConflictException,
   ForbiddenException,
   HttpException,
   HttpStatus,
@@ -29,6 +30,7 @@ describe('ApplicantService', () => {
     save: jest.fn(),
     find: jest.fn(),
     findOne: jest.fn(),
+    query: jest.fn(),
   };
   const createApplicantDto: CreateApplicantDto = {
     nombre: 'John',
@@ -314,7 +316,55 @@ describe('ApplicantService', () => {
         ),
       );
     });
-  });
+
+    it('should return duplicate emails with associated applicants', async () => {
+      // Mock data for duplicate emails
+      const duplicateEmailsMock = [
+        { correo_electronico: 'duplicate1@example.com' },
+        { correo_electronico: 'duplicate2@example.com' },
+      ];
+  
+      // Mock data for applicants associated with duplicate emails
+      const applicantsMock = [
+        { id: 1, correo_electronico: 'duplicate1@example.com', fecha_de_applicacion: new Date() },
+        { id: 2, correo_electronico: 'duplicate1@example.com', fecha_de_applicacion: new Date() },
+        { id: 3, correo_electronico: 'duplicate2@example.com', fecha_de_applicacion: new Date() },
+        { id: 4, correo_electronico: 'duplicate2@example.com', fecha_de_applicacion: new Date() },
+        { id: 5, correo_electronico: 'duplicate2@example.com', fecha_de_applicacion: new Date() },
+        { id: 6, correo_electronico: 'duplicate3@example.com', fecha_de_applicacion: new Date() },
+
+      ];
+  
+      mockApplicantRepository.query.mockResolvedValue(duplicateEmailsMock);
+      mockApplicantRepository.find.mockImplementation(({ where }) => {
+        const email = where.correo_electronico;
+        return applicantsMock.filter(applicant => applicant.correo_electronico === email);
+      });
+  
+      const result = await service.getDuplicateEmails();
+  
+      console.log(result)
+      expect(result).toHaveLength(duplicateEmailsMock.length);
+      console.log(result[0].applicants);
+      expect(result[0].email).toEqual(duplicateEmailsMock[0].correo_electronico);
+      expect(result[0].applicants).toHaveLength(2); 
+      expect(result[1].email).toEqual(duplicateEmailsMock[1].correo_electronico);
+      expect(result[1].applicants).toHaveLength(3); 
+    });
+
+    it('should throw HttpException if applicant not found', async () => {
+
+        mockApplicantRepository.query.mockRejectedValue(new Error());
+
+        try {
+          await service.getDuplicateEmails();
+        } catch (error) {
+          expect(error).toBeInstanceOf(ConflictException);
+          expect(error.message).toBe('Error al recuperar los correos electrónicos duplicados.');
+        }        
+      });
+    });
+
 
   describe('findByEstado', () => {
     it('should find applicants by estado - Invitado', async () => {
@@ -409,7 +459,7 @@ describe('ApplicantService', () => {
 
       const result = await service.findByResidence(residence);
 
-      console.log(result);
+      //console.log(result);
       expect(result).toEqual(residenceApplicants);
       expect(mockApplicantRepository.find).toHaveBeenCalledWith({
         where: { pais_de_residencia: residence },
