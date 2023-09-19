@@ -1,16 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import {
-	TipoGenero,
-	TipoId,
-	TipoProgramaDeseado,
-	TipoPermiso,
-	TipoEducacion,
-	TipoSituacionProfesional,
-	TipoInteresesActuales,
-	TipoAccessoInternetDispositivos,
-	TipoEncontrarPrograma,
-	TipoEstado,
-} from "./applicant.enums";
 import { IsDate, IsEmail, Length } from "@nestjs/class-validator";
 
 @Entity()

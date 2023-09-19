@@ -28,17 +28,22 @@ export class ApplicantController {
   	return await this.applicantService.findAll();
   }
 
+  @Get("duplicateEmails")
+  async getByDuplicateEmails() {
+  	return this.applicantService.getDuplicateEmails();
+  }
+ 
   // !! GET methods BY ONE
 
-  @Get(":id")
-  async findOne(@Param("id") id: string) {
-  	return await this.applicantService.findOneById(+id);
-  }
+   @Get("id/:id")
+  async findOne(@Param("id") id: number) {
+  	return await this.applicantService.findOneById(id);
+  }  
 
-  @Get(":email")
-  async findByEmail(@Param("email") email: string) {
-  	return this.applicantService.findOneByEmail(email);
-  }
+  @Get("email/:email")
+   async findByEmail(@Param("email") email: string) {
+   	return this.applicantService.findByEmail(email);
+   } 
 
   // !! GET methods w/ FILTER
 
@@ -58,10 +63,6 @@ export class ApplicantController {
   	return this.applicantService.findByResidence(pais_de_residencia);
   }
 
-  @Get("getDuplicateEmails")
-  async getDuplicateEmails() {
-  	return this.applicantService.getDuplicateEmails();
-  }
 
   @Patch(":id")
   update(
