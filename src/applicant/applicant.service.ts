@@ -28,6 +28,28 @@ export class ApplicantService {
     }
   }
 
+  async getDuplicateEmails(): Promise<any[]> {
+    try {
+      const queryResult = await this.applicantRepository
+        .createQueryBuilder('a1')
+        .select(['a1.*'])
+        .addSelect('a1.correo_electronico')
+        .innerJoin(
+          'applicant',
+          'a2',
+          'a1.id <> a2.id AND a1.correo_electronico = a2.correo_electronico',
+        )
+        .groupBy('a1.correo_electronico, a1.id')
+        .orderBy('a1.fecha_de_applicacion', 'DESC')
+        .getRawMany();
+
+      return queryResult;
+    } catch (error) {
+      throw new ConflictException('Error al recuperar los correos electrónicos duplicados.');
+    }
+  }
+
+
   async findAll(): Promise<Applicant[]> {
     try {
       return await this.applicantRepository.find();
@@ -100,29 +122,6 @@ export class ApplicantService {
     }
 
     return applicants;
-  }
-
-
-
-  async getDuplicateEmails(): Promise<any[]> {
-    try {
-      const queryResult = await this.applicantRepository
-        .createQueryBuilder('a1')
-        .select(['a1.*'])
-        .addSelect('a1.correo_electronico')
-        .innerJoin(
-          'applicant',
-          'a2',
-          'a1.id <> a2.id AND a1.correo_electronico = a2.correo_electronico',
-        )
-        .groupBy('a1.correo_electronico, a1.id')
-        .orderBy('a1.fecha_de_applicacion', 'DESC')
-        .getRawMany();
-
-      return queryResult;
-    } catch (error) {
-      throw new ConflictException('Error al recuperar los correos electrónicos duplicados.');
-    }
   }
 
 

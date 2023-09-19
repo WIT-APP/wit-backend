@@ -22,7 +22,6 @@ export class ApplicantController {
     return await this.applicantService.create(createApplicantDto);
   }
 
-
   @Get()
   async findAll() {
     return await this.applicantService.findAll();
@@ -32,9 +31,10 @@ export class ApplicantController {
   async getByDuplicateEmails() {
     return this.applicantService.getDuplicateEmails();
   }
+ 
   // !! GET methods BY ONE
 
-   @Get(':id')
+   @Get('id/:id')
   async findOne(@Param('id') id: number) {
     return await this.applicantService.findOneById(id);
   }  
