@@ -13,7 +13,7 @@ export class QuestionService {
     private questionRepository: Repository<Question>
   ) {}
 
-  create(createQuestionDto: CreateQuestionDto) {
+  async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
     return 'This action adds a new question';
   }
 

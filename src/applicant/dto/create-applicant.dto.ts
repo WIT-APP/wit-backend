@@ -1,16 +1,4 @@
 import { IsNotEmpty } from '@nestjs/class-validator';
-import {
-  TipoAccessoInternetDispositivos,
-  TipoColectivo,
-  TipoEducacion,
-  TipoEncontrarPrograma,
-  TipoGenero,
-  TipoId,
-  TipoInteresesActuales,
-  TipoPermiso,
-  TipoProgramaDeseado,
-  TipoSituacionProfesional,
-} from '../entities/applicant.enums';
 
 export class CreateApplicantDto {
   @IsNotEmpty()
@@ -26,7 +14,7 @@ export class CreateApplicantDto {
   telefono: number;
 
   @IsNotEmpty()
-  genero: TipoGenero;
+  genero: string;
 
   @IsNotEmpty()
   fecha_de_nacimiento: Date;
@@ -35,7 +23,7 @@ export class CreateApplicantDto {
   pais_de_nacimiento: string;
 
   @IsNotEmpty()
-  documento_de_identidad: TipoId;
+  documento_de_identidad: string;
 
   @IsNotEmpty()
   numero_documento_id: string;
@@ -58,27 +46,27 @@ export class CreateApplicantDto {
   @IsNotEmpty()
   programa_cursar: string;
 
-  permiso?: TipoPermiso;
+  permiso?: string;
 
   @IsNotEmpty()
   colectivo: string[];
 
   @IsNotEmpty()
-  educacion: TipoEducacion;
+  educacion: string;
 
   estudio_mas_alto?: string;
 
   @IsNotEmpty()
-  situacion_profesional: TipoSituacionProfesional;
+  situacion_profesional: string;
 
   @IsNotEmpty()
-  intereses_actuales: TipoInteresesActuales;
+  intereses_actuales: string;
 
   @IsNotEmpty()
   dedicacion_semanal: number;
 
   @IsNotEmpty()
-  acceso_internet_dispositivos: TipoAccessoInternetDispositivos;
+  acceso_internet_dispositivos: string;
 
   @IsNotEmpty()
   formacion_online: boolean;
@@ -87,7 +75,7 @@ export class CreateApplicantDto {
   razones_para_unir: string;
 
   @IsNotEmpty()
-  encontrar_programa: TipoEncontrarPrograma;
+  encontrar_programa: string;
 
   mas_informacion?: string;
 }
