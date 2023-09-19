@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	Controller,
 	Get,
@@ -21,8 +22,7 @@ export class ApplicantController {
 	async create(@Body() createApplicantDto: CreateApplicantDto) {
 		return await this.applicantService.create(createApplicantDto);
 	}
-
- 
+  
   @Get()
   async findAll() {
   	return await this.applicantService.findAll();

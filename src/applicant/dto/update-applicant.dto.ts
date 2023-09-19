@@ -1,17 +1,6 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { CreateApplicantDto } from "./create-applicant.dto";
-import {
-	TipoAccessoInternetDispositivos,
-	TipoColectivo,
-	TipoEducacion,
-	TipoEncontrarPrograma,
-	TipoGenero,
-	TipoId,
-	TipoInteresesActuales,
-	TipoPermiso,
-	TipoProgramaDeseado,
-	TipoSituacionProfesional,
-} from "../entities/applicant.enums";
+
 
 export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	nombre?: string;
@@ -19,26 +8,26 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	correo_electronico?: string;
 	telefono?: number;
 	estado?: string;
-	genero?: TipoGenero;
+	genero?: string;
 	fecha_de_nacimiento?: Date;
 	pais_de_nacimiento?: string;
-	documento_de_identidad?: TipoId;
+	documento_de_identidad?: string;
 	numero_documento_id?: string;
 	direccion?: string;
 	ciudad?: string;
 	codigo_postal?: number;
 	pais_de_residencia?: string;
 	programa_cursar?: string;
-	permiso?: TipoPermiso;
+	permiso?: string;
 	colectivo?: string[];
-	educacion?: TipoEducacion;
+	educacion?: string;
 	estudio_mas_alto?: string;
-	situacion_profesional?: TipoSituacionProfesional;
-	intereses_actuales?: TipoInteresesActuales;
+	situacion_profesional?: string;
+	intereses_actuales?: string;
 	dedicacion_semanal?: number;
-	acceso_internet_dispositivos?: TipoAccessoInternetDispositivos;
+	acceso_internet_dispositivos?: string;
 	formacion_online?: boolean;
 	razones_para_unir?: string;
-	encontrar_programa?: TipoEncontrarPrograma;
+	encontrar_programa?: string;
 	mas_informacion?: string;
 }
