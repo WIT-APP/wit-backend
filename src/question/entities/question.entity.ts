@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { TypeCategory, TypeField } from "./question.enum";
 
@@ -5,30 +6,30 @@ import { TypeCategory, TypeField } from "./question.enum";
 export class Question {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    	id: number;
 
     @Column()
-    text: string;
+    	text: string;
 
     @Column({type: "enum", enum: TypeField})
-    type: TypeField;
+    	type: TypeField;
 
-    @Column('text',{ array: true, default: {} })
-    options: string[];
+    @Column("text",{ array: true, default: {} })
+    	options: string[];
     
     @Column({ type: "enum", enum: TypeCategory})
-    category: TypeCategory;
+    	category: TypeCategory;
     
     @Column()
-    placeholder: string;
+    	placeholder: string;
     
     @Column()
-    expandText: string;
+    	expandText: string;
 
     @Column()
-    id_question: string;
+    	id_question: string;
 
     @Column()
-    obligatory: boolean;
+    	obligatory: boolean;
 
 }
