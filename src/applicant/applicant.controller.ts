@@ -21,8 +21,7 @@ export class ApplicantController {
   async create(@Body() createApplicantDto: CreateApplicantDto) {
     return await this.applicantService.create(createApplicantDto);
   }
-
-  @Get()
+  
   @Get()
   async findAll() {
     return await this.applicantService.findAll();
