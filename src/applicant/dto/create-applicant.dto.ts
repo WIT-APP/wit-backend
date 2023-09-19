@@ -1,93 +1,94 @@
-import { IsNotEmpty } from '@nestjs/class-validator';
+/* eslint-disable no-mixed-spaces-and-tabs */
+import { IsNotEmpty } from "@nestjs/class-validator";
 import {
-  TipoAccessoInternetDispositivos,
-  TipoColectivo,
-  TipoEducacion,
-  TipoEncontrarPrograma,
-  TipoGenero,
-  TipoId,
-  TipoInteresesActuales,
-  TipoPermiso,
-  TipoProgramaDeseado,
-  TipoSituacionProfesional,
-} from '../entities/applicant.enums';
+	TipoAccessoInternetDispositivos,
+	TipoColectivo,
+	TipoEducacion,
+	TipoEncontrarPrograma,
+	TipoGenero,
+	TipoId,
+	TipoInteresesActuales,
+	TipoPermiso,
+	TipoProgramaDeseado,
+	TipoSituacionProfesional,
+} from "../entities/applicant.enums";
 
 export class CreateApplicantDto {
   @IsNotEmpty()
-  nombre: string;
+  	nombre: string;
 
   @IsNotEmpty()
-  apellidos: string;
+  	apellidos: string;
 
   @IsNotEmpty()
-  correo_electronico: string;
+  	correo_electronico: string;
 
   @IsNotEmpty()
-  telefono: number;
+  	telefono: number;
 
   @IsNotEmpty()
-  genero: TipoGenero;
+  	genero: TipoGenero;
 
   @IsNotEmpty()
-  fecha_de_nacimiento: Date;
+  	fecha_de_nacimiento: Date;
 
   @IsNotEmpty()
-  pais_de_nacimiento: string;
+  	pais_de_nacimiento: string;
 
   @IsNotEmpty()
-  documento_de_identidad: TipoId;
+  	documento_de_identidad: TipoId;
 
   @IsNotEmpty()
-  numero_documento_id: string;
+  	numero_documento_id: string;
 
   @IsNotEmpty()
-  direccion: string;
+  	direccion: string;
 
   @IsNotEmpty()
-  ciudad: string;
+  	ciudad: string;
 
   @IsNotEmpty()
-  provincia: string;
+  	provincia: string;
 
   @IsNotEmpty()
-  codigo_postal: number;
+  	codigo_postal: number;
 
   @IsNotEmpty()
-  pais_de_residencia: string;
+  	pais_de_residencia: string;
 
   @IsNotEmpty()
-  programa_cursar: TipoProgramaDeseado;
+  	programa_cursar: TipoProgramaDeseado;
 
   permiso?: TipoPermiso;
 
   @IsNotEmpty()
-  colectivo: string[];
+  	colectivo: string[];
 
   @IsNotEmpty()
-  educacion: TipoEducacion;
+  	educacion: TipoEducacion;
 
   estudio_mas_alto?: string;
 
   @IsNotEmpty()
-  situacion_profesional: TipoSituacionProfesional;
+  	situacion_profesional: TipoSituacionProfesional;
 
   @IsNotEmpty()
-  intereses_actuales: TipoInteresesActuales;
+  	intereses_actuales: TipoInteresesActuales;
 
   @IsNotEmpty()
-  dedicacion_semanal: number;
+  	dedicacion_semanal: number;
 
   @IsNotEmpty()
-  acceso_internet_dispositivos: TipoAccessoInternetDispositivos;
+  	acceso_internet_dispositivos: TipoAccessoInternetDispositivos;
 
   @IsNotEmpty()
-  formacion_online: boolean;
+  	formacion_online: boolean;
 
   @IsNotEmpty()
-  razones_para_unir: string;
+  	razones_para_unir: string;
 
   @IsNotEmpty()
-  encontrar_programa: TipoEncontrarPrograma;
+  	encontrar_programa: TipoEncontrarPrograma;
 
   mas_informacion?: string;
 }
