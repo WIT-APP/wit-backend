@@ -11,8 +11,8 @@ export class Question {
     @Column()
     	text: string;
 
-    @Column({type: "enum", enum: TypeField})
-    	type: TypeField;
+    @Column()
+    	type: string;
 
     @Column("text",{ array: true, default: {} })
     	options: string[];
@@ -20,7 +20,7 @@ export class Question {
     @Column({ type: "enum", enum: TypeCategory})
     	category: TypeCategory;
     
-    @Column()
+    @Column({nullable: true})
     	placeholder: string;
     
     @Column()
