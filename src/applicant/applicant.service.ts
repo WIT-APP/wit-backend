@@ -72,7 +72,7 @@ export class ApplicantService {
     const result = await this.applicantRepository.query(query);
     return result;
   } catch (error) {
-    throw new Error('Error retrieving preapproved users.');
+    throw new Error('Error al recuperar usuarios preaprobados.');
   }
 }
 

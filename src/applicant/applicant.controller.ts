@@ -46,7 +46,7 @@ export class ApplicantController {
   }
 
   @Get('email/:email')
-  async findByEmail(@Param('email') email: string) {
+  async findOneByEmail(@Param('email') email: string) {
     return this.applicantService.findByEmail(email);
   }
 

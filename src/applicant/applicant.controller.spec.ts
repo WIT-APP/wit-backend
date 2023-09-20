@@ -17,8 +17,9 @@ describe("ApplicantController", () => {
 		remove: jest.fn(),
 		findByEstado: jest.fn(),
 		findByResidence: jest.fn(),
-		findOneByEmail: jest.fn(),
+		findByEmail: jest.fn(),
 		getDuplicateEmails: jest.fn(),
+		getUsersPreapproved: jest.fn(),
 	};
 
 	const createApplicantDto: CreateApplicantDto = {
@@ -243,12 +244,12 @@ describe("ApplicantController", () => {
 	describe("findOneByEmail", () => {
 		it("should return a single applicant by email", async () => {
 			const email = "bob@example.com"; 
-			mockApplicantService.findOneByEmail.mockResolvedValue(createdApplicant);
+			mockApplicantService.findByEmail.mockResolvedValue(createdApplicant);
 
-			const result = await controller.findByEmail(email);
+			const result = await controller.findOneByEmail(email);
 
 			expect(result).toBe(createdApplicant);
-			expect(mockApplicantService.findOneByEmail).toHaveBeenCalledWith(email); 
+			expect(mockApplicantService.findByEmail).toHaveBeenCalledWith(email); 
 		});
 	});
   
@@ -263,8 +264,10 @@ describe("ApplicantController", () => {
 			);
   
 			const result = await controller.filterByEstado(estado);
+			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
 			//console.log(result);
 			expect(result).toEqual([applicants[0]]);
+			
 		});
 
 
@@ -276,6 +279,7 @@ describe("ApplicantController", () => {
 			);
 
 			const result = await controller.filterByEstado(estado);
+			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
 			//console.log(result);
 			expect(result).toEqual([applicants[1]]);
 		});
@@ -289,6 +293,8 @@ describe("ApplicantController", () => {
 			);
 
 			const result = await controller.filterByEstado(estado);
+			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
+
 			//console.log(result);
 			expect(result).toEqual([applicants[2]]);
 		});
@@ -301,6 +307,7 @@ describe("ApplicantController", () => {
 			);
 
 			const result = await controller.filterByEstado(estado);
+			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
 			//console.log(result);
 			expect(result).toEqual([applicants[3]]);
 		});
@@ -334,24 +341,28 @@ describe("ApplicantController", () => {
 			expect(mockApplicantService.findByResidence).toHaveBeenCalledWith(residence);
 		});
 	});
-	/* describe('getDuplicateEmails', () => {
-  it('should return duplicate emails from the service', async () => {
-    const duplicateEmails = [{ email: 'duplicate1@example.com' }, { email: 'duplicate2@example.com' }];
-    mockApplicantService.getDuplicateEmails.mockResolvedValue(duplicateEmails);
-
-    const result = await controller.getDuplicateEmails();
-
-    expect(result).toEqual(duplicateEmails);
-    expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
-  });
-
-  it('should throw a ConflictException if the service throws an error', async () => {
-    mockApplicantService.getDuplicateEmails.mockRejectedValue(new Error('Some error'));
-
-    await expect(controller.getDuplicateEmails()).rejects.toThrowError(ConflictException);
-    expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
-  });
-}); */
-
+	describe('getByDuplicateEmails', () => {
+		it('should call getDuplicateEmails from service and return the result', async () => {
+		  const expectedResult = ['duplicate1@example.com', 'duplicate2@example.com'];
+		  mockApplicantService.getDuplicateEmails.mockResolvedValue(expectedResult);
+	
+		  const result = await controller.getByDuplicateEmails();
+	
+		  expect(result).toEqual(expectedResult);
+		  expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
+		});
+	  });
+	  describe('getByUsersPreapproved', () => {
+		it('should call getUsersPreapproved from service and return the result', async () => {
+		  const expectedResult= [applicants[0]]; 
+		  mockApplicantService.getUsersPreapproved.mockResolvedValue(expectedResult);
+	
+		  const result = await controller.getByUsersPreapproved();
+	
+		  expect(result).toEqual(expectedResult);
+		  expect(mockApplicantService.getUsersPreapproved).toHaveBeenCalled();
+		});
+	  });
+	
 });
 
