@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
-import { EntityManager, Repository, getManager } from 'typeorm';
+import { EntityManager, In, Repository, getManager } from 'typeorm';
 import { Applicant } from './entities/applicant.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -40,7 +40,7 @@ export class ApplicantService {
           'a1.id <> a2.id AND a1.correo_electronico = a2.correo_electronico',
         )
         .groupBy('a1.correo_electronico, a1.id')
-        .orderBy('a1.fecha_de_applicacion', 'DESC')
+         .orderBy('a1.fecha_de_applicacion', 'DESC') 
         .getRawMany();
 
       return queryResult;
@@ -49,6 +49,32 @@ export class ApplicantService {
     }
   }
 
+
+  async getUsersPreapproved(): Promise<Applicant[]> {
+    const nonUniqueEmailsQuery = `
+    SELECT correo_electronico
+    FROM applicant
+    GROUP BY correo_electronico
+    HAVING COUNT(correo_electronico) > 1
+  `;
+
+  try {
+    const nonUniqueEmailsResult = await this.applicantRepository.query(nonUniqueEmailsQuery);
+    const nonUniqueEmails = nonUniqueEmailsResult.map((result) => result.correo_electronico);
+
+    const query = `
+      SELECT *
+      FROM applicant
+      WHERE correo_electronico NOT IN (${nonUniqueEmails.map(email => `'${email}'`).join(',')})
+      AND pais_de_residencia = 'España';
+    `;
+
+    const result = await this.applicantRepository.query(query);
+    return result;
+  } catch (error) {
+    throw new Error('Error retrieving preapproved users.');
+  }
+}
 
   async findAll(): Promise<Applicant[]> {
     try {

@@ -230,13 +230,13 @@ describe("ApplicantController", () => {
 
 	describe("findOneById", () => {
 		it("should return a single applicant by ID", async () => {
-			const id = "1"; 
+			const id = 1; 
 			mockApplicantService.findOneById.mockResolvedValue(createdApplicant);
 
 			const result = await controller.findOne(id);
 
 			expect(result).toBe(createdApplicant);
-			expect(mockApplicantService.findOneById).toHaveBeenCalledWith(+id); 
+			expect(mockApplicantService.findOneById).toHaveBeenCalledWith(id); 
 		});
 	});
 
