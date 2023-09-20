@@ -23,7 +23,7 @@ export class Question {
     @Column({nullable: true})
     	placeholder: string;
     
-    @Column()
+    @Column({nullable: true})
     	expandText: string;
 
     @Column()
