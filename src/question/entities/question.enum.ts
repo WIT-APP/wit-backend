@@ -5,6 +5,7 @@ export enum TypeField {
     Checkbox = "checkbox",
     Textarea = "textarea",
     Date = "date",
+    Document = "document",
 }
 
 export enum TypeCategory {
