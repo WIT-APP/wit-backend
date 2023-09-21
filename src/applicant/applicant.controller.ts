@@ -69,12 +69,20 @@ export class ApplicantController {
     return this.applicantService.findByResidence(pais_de_residencia);
   }
 
-  @Patch(':id')
+/*   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateApplicantDto: UpdateApplicantDto,
   ) {
-    return this.applicantService.update(+id, updateApplicantDto);
+    return this.applicantService.update(id, updateApplicantDto);
+  } */
+
+  @Patch('update-estado/:id')
+  async updateEstado(
+    @Param('id') id: number,
+    @Body() updateApplicantDto: UpdateApplicantDto,
+  ): Promise<Applicant> {
+    return this.applicantService.updateEstado(id, updateApplicantDto);
   }
 
   @Delete(':id')

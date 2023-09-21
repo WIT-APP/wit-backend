@@ -150,10 +150,28 @@ export class ApplicantService {
     return applicants;
   }
 
+  async updateEstado(id: number, updateApplicantDto: UpdateApplicantDto): Promise<Applicant> {
+    const applicant = await this.applicantRepository.findOne({ where: { id } })
 
-  update(id: number, updateApplicantDto: UpdateApplicantDto) {
-    return `This action updates a #${id} applicant`;
+    if (!applicant) {
+      throw new NotFoundException('No se encontraron el aspirante.');
+    }
+
+    try {
+      applicant.estado = updateApplicantDto.estado;
+        
+      const updatedCourse = await this.applicantRepository.save(applicant)
+      return updatedCourse
+    } catch (error) {
+      throw new InternalServerErrorException('Occurrió un error actualizando el aspirante.')
+    }
   }
+
+ /*    updateApplicant(id: number, updateApplicantDto: UpdateApplicantDto) {
+      const applicant = await this.applicantRepository.findOne({ where: { id } })
+
+    const updatedEstado = new UpdateApplicantDto
+  } */
 
   remove(id: number) {
     return `This action removes a #${id} applicant`;

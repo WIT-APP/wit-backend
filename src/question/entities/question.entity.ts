@@ -30,6 +30,8 @@ export class Question {
     	id_question: string;
 
     @Column()
-    	obligatory: boolean;
+        obligatory: boolean;
+    
+    
 
 }
