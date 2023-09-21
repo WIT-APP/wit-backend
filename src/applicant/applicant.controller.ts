@@ -69,13 +69,13 @@ export class ApplicantController {
     return this.applicantService.findByResidence(pais_de_residencia);
   }
 
-/*   @Patch(':id')
-  update(
+  @Patch(':id')
+  async updateApplicant(
     @Param('id') id: number,
     @Body() updateApplicantDto: UpdateApplicantDto,
   ) {
-    return this.applicantService.update(id, updateApplicantDto);
-  } */
+    return this.applicantService.updateApplicant(id, updateApplicantDto);
+  } 
 
   @Patch('update-estado/:id')
   async updateEstado(

@@ -16,6 +16,7 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	numero_documento_id?: string;
 	direccion?: string;
 	ciudad?: string;
+	provincia?: string;
 	codigo_postal?: number;
 	pais_de_residencia?: string;
 	programa_cursar?: string;

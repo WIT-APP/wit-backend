@@ -142,7 +142,7 @@ export class ApplicantService {
 
     if (!applicants || applicants.length === 0) {
       throw new HttpException(
-        'No se encontraron solicitantes para el pais de residencia especificado.',
+        'No se encontraron aspirantes para el pais de residencia especificado.',
         HttpStatus.NOT_FOUND,
       );
     }
@@ -160,18 +160,56 @@ export class ApplicantService {
     try {
       applicant.estado = updateApplicantDto.estado;
         
-      const updatedCourse = await this.applicantRepository.save(applicant)
-      return updatedCourse
+      const updatedApplicant = await this.applicantRepository.save(applicant)
+      return updatedApplicant
+    } catch (error) {
+      throw new InternalServerErrorException('Occurrió un error actualizando el aspirante.')
+    }
+  } 
+
+  async updateApplicant(id: number, updateApplicantDto: UpdateApplicantDto): Promise<Applicant>  {
+      const applicant = await this.applicantRepository.findOne({ where: { id } })
+      if (!applicant) {
+        throw new NotFoundException('No se encontraron el aspirante.');
+      }
+  
+    try {
+      applicant.nombre =updateApplicantDto.nombre
+      applicant.apellidos = updateApplicantDto.apellidos
+      applicant.correo_electronico = updateApplicantDto.correo_electronico
+      applicant.telefono = updateApplicantDto.telefono
+      applicant.estado = updateApplicantDto.estado;
+      applicant.genero = updateApplicantDto.genero
+      applicant.fecha_de_nacimiento = updateApplicantDto.fecha_de_nacimiento 
+      applicant.pais_de_nacimiento = updateApplicantDto.pais_de_nacimiento
+      applicant.documento_de_identidad = updateApplicantDto.documento_de_identidad
+      applicant.tipo_documento_identidad = updateApplicantDto.tipo_documento_identidad
+      applicant.numero_documento_id = updateApplicantDto.numero_documento_id
+      applicant.direccion = updateApplicantDto.direccion
+      applicant.ciudad = updateApplicantDto.ciudad
+      applicant.provincia = updateApplicantDto.provincia
+      applicant.codigo_postal = updateApplicantDto.codigo_postal
+      applicant.pais_de_residencia = updateApplicantDto.pais_de_residencia
+      applicant.programa_cursar = updateApplicantDto.programa_cursar
+      applicant.permiso = updateApplicantDto.permiso
+      applicant.colectivo = updateApplicantDto.colectivo
+      applicant.educacion = updateApplicantDto.educacion
+      applicant.estudio_mas_alto = updateApplicantDto.estudio_mas_alto
+      applicant.situacion_profesional = updateApplicantDto.situacion_profesional
+      applicant.intereses_actuales = updateApplicantDto.intereses_actuales
+      applicant.dedicacion_semanal = updateApplicantDto.dedicacion_semanal
+      applicant.acceso_internet_dispositivos = updateApplicantDto.acceso_internet_dispositivos
+      applicant.formacion_online = updateApplicantDto.formacion_online
+      applicant.razones_para_unir = updateApplicantDto.razones_para_unir
+      applicant.encontrar_programa = updateApplicantDto.encontrar_programa
+      applicant.mas_informacion = updateApplicantDto.mas_informacion
+   
+      const updatedApplicant = await this.applicantRepository.save(applicant)
+      return updatedApplicant
     } catch (error) {
       throw new InternalServerErrorException('Occurrió un error actualizando el aspirante.')
     }
   }
-
- /*    updateApplicant(id: number, updateApplicantDto: UpdateApplicantDto) {
-      const applicant = await this.applicantRepository.findOne({ where: { id } })
-
-    const updatedEstado = new UpdateApplicantDto
-  } */
 
   remove(id: number) {
     return `This action removes a #${id} applicant`;
