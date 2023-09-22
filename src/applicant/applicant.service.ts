@@ -77,7 +77,9 @@ export class ApplicantService {
     const preaprovadoQuery = `
       SELECT *
       FROM applicant
-      WHERE estado = 'Preaprovado';
+      WHERE correo_electronico NOT IN (${nonUniqueEmails.map(email => `'${email}'`).join(',')})
+      AND pais_de_residencia = 'España'
+      AND estado = 'Preaprovado';
     `;
     const preaprovadoApplicants = await this.applicantRepository.query(preaprovadoQuery);
 
