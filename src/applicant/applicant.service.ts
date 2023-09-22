@@ -62,12 +62,19 @@ export class ApplicantService {
     const nonUniqueEmailsResult = await this.applicantRepository.query(nonUniqueEmailsQuery);
     const nonUniqueEmails = nonUniqueEmailsResult.map((result) => result.correo_electronico);
 
-    const query = `
-      SELECT *
-      FROM applicant
+    const query = `WITH UpdatedApplicants AS (
+      UPDATE applicant
+      SET estado = 'Preaprovado'
       WHERE correo_electronico NOT IN (${nonUniqueEmails.map(email => `'${email}'`).join(',')})
-      AND pais_de_residencia = 'España';
-    `;
+      AND pais_de_residencia = 'España'
+      AND estado = 'Aplicante'
+      RETURNING *
+    )
+    
+    SELECT *
+    FROM UpdatedApplicants
+    WHERE estado = 'Preaprovado';
+  `;
 
     const result = await this.applicantRepository.query(query);
     return result;
