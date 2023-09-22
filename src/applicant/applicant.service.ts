@@ -62,23 +62,30 @@ export class ApplicantService {
     const nonUniqueEmailsResult = await this.applicantRepository.query(nonUniqueEmailsQuery);
     const nonUniqueEmails = nonUniqueEmailsResult.map((result) => result.correo_electronico);
 
-    const query = `UPDATE applicant
-    SET estado = 'Preaprovado'
-    WHERE correo_electronico NOT IN (${nonUniqueEmails.map(email => `'${email}'`).join(',')})
-    AND pais_de_residencia = 'España'
-    AND estado = 'Aplicante';
-  
-    SELECT *
-    FROM applicant
-    WHERE estado = 'Preaprovado';
+    // Update estado to 'Preaprovado' for eligible applicants
+    const updateQuery = `
+      UPDATE applicant
+      SET estado = 'Preaprovado'
+      WHERE correo_electronico NOT IN (${nonUniqueEmails.map(email => `'${email}'`).join(',')})
+      AND pais_de_residencia = 'España'
+      AND estado = 'Aplicante'
+      RETURNING *;
     `;
+    const updatedApplicants = await this.applicantRepository.query(updateQuery);
 
-    const result = await this.applicantRepository.query(query);
-    return result;
+    // Retrieve and return applicants with estado 'Preaprovado'
+    const preaprovadoQuery = `
+      SELECT *
+      FROM applicant
+      WHERE estado = 'Preaprovado';
+    `;
+    const preaprovadoApplicants = await this.applicantRepository.query(preaprovadoQuery);
+
+    return preaprovadoApplicants;
   } catch (error) {
     throw new Error('Error al recuperar usuarios preaprobados.');
   }
-} 
+}
 
   async findAll(): Promise<Applicant[]> {
     try {
