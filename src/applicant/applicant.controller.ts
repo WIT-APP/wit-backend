@@ -75,7 +75,7 @@ export class ApplicantController {
     @Body() updateApplicantDto: UpdateApplicantDto,
   ) {
     return this.applicantService.updateApplicant(id, updateApplicantDto);
-  } 
+  }
 
   @Patch('update-estado/:id')
   async updateEstado(
@@ -90,3 +90,11 @@ export class ApplicantController {
     return this.applicantService.remove(+id);
   }
 }
+
+/*  @Get('search')
+  async searchByKeyword(
+    @Query('keyword') keyword: string,
+  ): Promise<Applicant[]> {
+    const applicants = await this.applicantService.searchByKeyword(keyword);
+    return applicants;
+  } */

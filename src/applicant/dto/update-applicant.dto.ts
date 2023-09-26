@@ -32,4 +32,5 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	razones_para_unir?: string;
 	encontrar_programa?: string;
 	mas_informacion?: string;
+	observaciones?: string;
 }

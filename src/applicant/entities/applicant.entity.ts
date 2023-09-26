@@ -99,5 +99,8 @@ export class Applicant {
   	encontrar_programa: string;
 
   @Column({ type: "text", nullable: true })
-  	mas_informacion: string;
+  mas_informacion: string;
+  
+  @Column({ type: "text", nullable: true })
+  observaciones: string;
 }

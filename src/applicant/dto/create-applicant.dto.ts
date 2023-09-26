@@ -81,4 +81,7 @@ export class CreateApplicantDto {
   	encontrar_programa: string;
 
   mas_informacion?: string;
+
+  observaciones?: string;
+
 }
