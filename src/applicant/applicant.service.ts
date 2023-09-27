@@ -21,11 +21,9 @@ export class ApplicantService {
   ) {}
 
   async create(createApplicantDto: CreateApplicantDto): Promise<Applicant> {
-    try {
+  
       return await this.applicantRepository.save(createApplicantDto);
-    } catch (error) {
-      throw new Error('Failed to submit form.');
-    }
+   
   }
 
   async getDuplicateEmails(): Promise<any[]> {
@@ -45,7 +43,7 @@ export class ApplicantService {
 
       return queryResult;
     } catch (error) {
-      throw new ConflictException(
+      throw new Error(
         'Error al recuperar los correos electrónicos duplicados.',
       );
     }
@@ -154,7 +152,7 @@ export class ApplicantService {
         'No se encontraron personas en este estado.',
         HttpStatus.NOT_FOUND,
       );
-    }
+    } 
 
     return applicants;
   }

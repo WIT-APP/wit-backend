@@ -54,6 +54,7 @@ export class ApplicantController {
 
   @Get('filter-by-estado/:estado')
   async filterByEstado(@Param('estado') estado: string): Promise<Applicant[]> {
+    
     return this.applicantService.findByEstado(estado);
   }
 
