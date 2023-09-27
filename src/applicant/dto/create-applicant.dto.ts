@@ -1,84 +1,91 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { IsNotEmpty } from "@nestjs/class-validator";
+import { IsNotEmpty, IsOptional } from '@nestjs/class-validator';
 
 export class CreateApplicantDto {
   @IsNotEmpty()
-  	nombre: string;
+  nombre: string;
 
   @IsNotEmpty()
-  	apellidos: string;
+  apellidos: string;
 
   @IsNotEmpty()
-  	correo_electronico: string;
+  correo_electronico: string;
 
   @IsNotEmpty()
-  	telefono: number;
+  telefono: number;
 
   @IsNotEmpty()
-  	genero: string;
+  genero: string;
 
   @IsNotEmpty()
-  	fecha_de_nacimiento: Date;
+  fecha_de_nacimiento: Date;
 
   @IsNotEmpty()
-  	pais_de_nacimiento: string;
+  pais_de_nacimiento: string;
 
   @IsNotEmpty()
-  	documento_de_identidad: string;
+  documento_de_identidad: string;
 
+  @IsOptional()
   tipo_documento_identidad?: string;
 
   @IsNotEmpty()
-  	numero_documento_id: string;
+  numero_documento_id: string;
 
   @IsNotEmpty()
-  	direccion: string;
+  direccion: string;
 
   @IsNotEmpty()
-  	ciudad: string;
+  ciudad: string;
 
   @IsNotEmpty()
-  	provincia: string;
+  provincia: string;
 
   @IsNotEmpty()
-  	codigo_postal: number;
+  codigo_postal: number;
 
   @IsNotEmpty()
-  	pais_de_residencia: string;
+  pais_de_residencia: string;
 
   @IsNotEmpty()
-  	programa_cursar: string;
+  programa_cursar: string;
 
+  @IsOptional()
   permiso?: string;
 
   @IsNotEmpty()
-  	colectivo: string[];
+  colectivo: string[];
 
   @IsNotEmpty()
-  	educacion: string;
+  educacion: string;
 
+  @IsOptional()
   estudio_mas_alto?: string;
 
   @IsNotEmpty()
-  	situacion_profesional: string;
+  situacion_profesional: string;
 
   @IsNotEmpty()
-  	intereses_actuales: string;
+  intereses_actuales: string;
 
   @IsNotEmpty()
-  	dedicacion_semanal: number;
+  dedicacion_semanal: number;
 
   @IsNotEmpty()
-  	acceso_internet_dispositivos: string;
+  acceso_internet_dispositivos: string;
 
   @IsNotEmpty()
-  	formacion_online: boolean;
+  formacion_online: boolean;
 
   @IsNotEmpty()
-  	razones_para_unir: string;
+  razones_para_unir: string;
 
   @IsNotEmpty()
-  	encontrar_programa: string;
+  encontrar_programa: string;
 
+  @IsOptional()
   mas_informacion?: string;
+
+  @IsOptional()
+  observaciones?: string;
 }

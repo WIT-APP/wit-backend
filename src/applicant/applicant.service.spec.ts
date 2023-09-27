@@ -22,6 +22,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { UpdateApplicantDto } from './dto/update-applicant.dto';
 
 describe('ApplicantService', () => {
   let service: ApplicantService;
@@ -65,6 +66,7 @@ describe('ApplicantService', () => {
     formacion_online: false,
     razones_para_unir: 'Lorem Ipsum',
     encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+    observaciones: ""
   };
   const createdApplicant = {
     id: 1,
@@ -93,6 +95,7 @@ describe('ApplicantService', () => {
     razones_para_unir: 'Lorem Ipsum',
     encontrar_programa: TipoEncontrarPrograma.RedesSociales,
     estado: 'Aplicante',
+    observaciones: ""
   };
 
   const applicants = [
@@ -123,6 +126,7 @@ describe('ApplicantService', () => {
       razones_para_unir: 'Lorem Ipsum',
       encontrar_programa: TipoEncontrarPrograma.RedesSociales,
       estado: 'Aplicante',
+      observaciones: ""
     },
     {
       id: 2,
@@ -151,6 +155,7 @@ describe('ApplicantService', () => {
       razones_para_unir: 'Lorem Ipsum',
       encontrar_programa: TipoEncontrarPrograma.RedesSociales,
       estado: 'Invitado',
+      observaciones: ""
     },
     {
       id: 3,
@@ -179,6 +184,7 @@ describe('ApplicantService', () => {
       razones_para_unir: 'Lorem Ipsum',
       encontrar_programa: TipoEncontrarPrograma.RedesSociales,
       estado: 'Rechazado',
+      observaciones: ""
     },
     {
       id: 4,
@@ -207,6 +213,7 @@ describe('ApplicantService', () => {
       razones_para_unir: 'Lorem Ipsum',
       encontrar_programa: TipoEncontrarPrograma.RedesSociales,
       estado: 'Matriculado',
+      observaciones: ""
     },
   ];
 
@@ -489,10 +496,214 @@ describe('ApplicantService', () => {
 
       await expect(service.findByResidence(residence)).rejects.toThrowError(
         new HttpException(
-          'No se encontraron solicitantes para el pais de residencia especificado.',
+          'No se encontraron aspirantes para el pais de residencia especificado.',
           HttpStatus.NOT_FOUND,
         ),
       );
     });
+   
+    });
+    
+  describe('updateEstado', () => {
+    it('should update an applicant estado', async () => {
+      const id = 1;
+      const updateApplicantDto: UpdateApplicantDto = {
+        estado: 'Matriculado',
+      };
+  
+      const existingApplicant: Applicant = {
+				id: 1,
+				nombre: "Sam",
+				apellidos: "Boe",
+				correo_electronico: "john@example.com",
+				telefono: 44884193,
+				genero: TipoGenero.Hombre,
+				fecha_de_nacimiento: new Date(2000, 12, 16),
+				pais_de_nacimiento: "France",
+				documento_de_identidad: TipoId.DNI,
+				numero_documento_id: "Y2939789",
+				direccion: "c/Barcelona 1234",
+				ciudad: "Barcelona",
+				provincia: "Barcelona",
+				codigo_postal: 78953,
+				pais_de_residencia: "España",
+				programa_cursar: TipoProgramaDeseado.ITSupport,
+				colectivo: ["Mujer en situación de vulnerabilidad", "Minorías étnicas"],
+				educacion: TipoEducacion.SinEstudio,
+				situacion_profesional: TipoSituacionProfesional.SinIngresos,
+				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
+				dedicacion_semanal: 0,
+				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
+				formacion_online: false,
+				razones_para_unir: "Lorem Ipsum",
+				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+				estado: "Aplicante",
+				fecha_de_applicacion: undefined,
+				tipo_documento_identidad: "",
+				permiso: "",
+				estudio_mas_alto: "",
+        mas_informacion: "",
+        observaciones: ""
+      }
+      
+      const updatedApplicant: Applicant = {
+        id,
+        ...existingApplicant,
+        ...updateApplicantDto,
+      }
+      mockApplicantRepository.findOne.mockResolvedValue(existingApplicant);
+      mockApplicantRepository.save.mockResolvedValue(updatedApplicant);
+
+      const result = await service.updateApplicant(id, updateApplicantDto);
+
+      
+      expect(result).toEqual(updatedApplicant);
+    });
+  
+    it('should throw NotFoundException if applicant is not found', async () => {
+      const id = 1;
+      const updateApplicantDto: UpdateApplicantDto = {
+        estado: 'Matriculado',
+      };
+  
+      mockApplicantRepository.findOne.mockResolvedValue(null);
+  
+      await expect(service.updateEstado(id, updateApplicantDto)).rejects.toThrow(NotFoundException);
+    });
+  
+    it('should throw InternalServerErrorException on save error', async () => {
+      const id = 1;
+      const updateApplicantDto: UpdateApplicantDto = {
+        estado: 'Matriculado',
+      };
+  
+      const mockApplicant = new Applicant();
+      mockApplicantRepository.findOne.mockResolvedValue(mockApplicant);
+      mockApplicantRepository.save.mockRejectedValue(new Error());
+  
+      await expect(service.updateEstado(id, updateApplicantDto)).rejects.toThrow(InternalServerErrorException);
+    });
+  })
+  describe('updateApplicant', () => {
+    it('should update an applicant', async () => {
+      const id = 1;
+      const updateApplicantDto: UpdateApplicantDto = {
+        nombre: 'John',
+        apellidos: 'Doe',
+        telefono: 123456789,
+        estado: 'Matriculado',
+      };
+
+			const existingApplicant: Applicant = {
+				id: 1,
+				nombre: "Sam",
+				apellidos: "Boe",
+				correo_electronico: "john@example.com",
+				telefono: 44884193,
+				genero: TipoGenero.Hombre,
+				fecha_de_nacimiento: new Date(2000, 12, 16),
+				pais_de_nacimiento: "France",
+				documento_de_identidad: TipoId.DNI,
+				numero_documento_id: "Y2939789",
+				direccion: "c/Barcelona 1234",
+				ciudad: "Barcelona",
+				provincia: "Barcelona",
+				codigo_postal: 78953,
+				pais_de_residencia: "España",
+				programa_cursar: TipoProgramaDeseado.ITSupport,
+				colectivo: ["Mujer en situación de vulnerabilidad", "Minorías étnicas"],
+				educacion: TipoEducacion.SinEstudio,
+				situacion_profesional: TipoSituacionProfesional.SinIngresos,
+				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
+				dedicacion_semanal: 0,
+				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
+				formacion_online: false,
+				razones_para_unir: "Lorem Ipsum",
+				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+				estado: "Aplicante",
+				fecha_de_applicacion: undefined,
+				tipo_documento_identidad: "",
+				permiso: "",
+				estudio_mas_alto: "",
+        mas_informacion: "",
+        observaciones: ""
+      }
+      
+      const updatedApplicant: Applicant = {
+        id,
+        ...existingApplicant,
+        ...updateApplicantDto,
+      }
+      mockApplicantRepository.findOne.mockResolvedValue(existingApplicant);
+      mockApplicantRepository.save.mockResolvedValue(updatedApplicant);
+
+      const result = await service.updateApplicant(id, updateApplicantDto);
+
+      
+      expect(result).toEqual(updatedApplicant);
+    });
+
+    it('should throw NotFoundException if applicant is not found', async () => {
+      const id = 1;
+      const updateApplicantDto: UpdateApplicantDto = {
+        nombre: 'John',
+        apellidos: 'Doe',
+        telefono: 123456789,
+        estado: 'Matriculado',
+      };
+
+      mockApplicantRepository.findOne.mockResolvedValue(null);
+
+      await expect(service.updateApplicant(id, updateApplicantDto)).rejects.toThrow(NotFoundException);
+    });
+
+    it('should throw InternalServerErrorException on save error', async () => {
+      const id = 1;
+      const updateApplicantDto: UpdateApplicantDto = {
+        nombre: 'John',
+        apellidos: 'Doe',
+        telefono: 123456789,
+        estado: 'Matriculado',
+      };
+      const updatedApplicant: Applicant = {
+				id: 1,
+				nombre: "John",
+				apellidos: "Doe",
+				correo_electronico: "john@example.com",
+				telefono: 123456789,
+				genero: TipoGenero.Hombre,
+				fecha_de_nacimiento: new Date(2000, 12, 16),
+				pais_de_nacimiento: "France",
+				documento_de_identidad: TipoId.DNI,
+				numero_documento_id: "Y2939789",
+				direccion: "c/Barcelona 1234",
+				ciudad: "Barcelona",
+				provincia: "Barcelona",
+				codigo_postal: 78953,
+				pais_de_residencia: "España",
+				programa_cursar: TipoProgramaDeseado.ITSupport,
+				colectivo: ["Mujer en situación de vulnerabilidad", "Minorías étnicas"],
+				educacion: TipoEducacion.SinEstudio,
+				situacion_profesional: TipoSituacionProfesional.SinIngresos,
+				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
+				dedicacion_semanal: 0,
+				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
+				formacion_online: false,
+				razones_para_unir: "Lorem Ipsum",
+				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+				estado: "Aplicante",
+				fecha_de_applicacion: undefined,
+				tipo_documento_identidad: "",
+				permiso: "",
+				estudio_mas_alto: "",
+        mas_informacion: "",
+        observaciones: ""
+			}
+      mockApplicantRepository.findOne.mockResolvedValue(updatedApplicant);
+      mockApplicantRepository.save.mockRejectedValue(new Error());
+
+      await expect(service.updateApplicant(id, updateApplicantDto)).rejects.toThrow(InternalServerErrorException);
+    });
   });
 });
+
