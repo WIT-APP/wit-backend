@@ -7,15 +7,17 @@ export class InterviewController {
   constructor(private interviewService: InterviewService) {}
 
   @Get('id/:id')
-  async findOneByApplicantId(@Param('id') id: number) {
-    return await this.interviewService.findOneByApplicantId(id);
+  async findOneById(@Param('id') id: number) {
+    return await this.interviewService.findOneById(id);
   }
 
-  @Post('id/:id')
-  async create(
-    @Param('id') id: number,
-    @Body() createInterviewDto: CreateInterviewDto,
-  ) {
-    return await this.interviewService.create(id, createInterviewDto);
+  @Post()
+  async create(@Body() createInterviewDto: CreateInterviewDto) {
+    return await this.interviewService.create(createInterviewDto);
+  }
+
+  @Get('applicant/:applicant_id')
+  async findByApplicantId(@Param('applicant_id') applicant_id: number) {
+    return await this.interviewService.findByApplicantId(applicant_id);
   }
 }
