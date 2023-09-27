@@ -1,4 +1,4 @@
-import { IsNotEmpty } from '@nestjs/class-validator';
+import { IsNotEmpty, IsOptional } from '@nestjs/class-validator';
 
 export class CreateInterviewDto {
   @IsNotEmpty()
@@ -18,6 +18,7 @@ export class CreateInterviewDto {
   @IsNotEmpty()
   otros_cursos: boolean;
 
+  @IsOptional()
   cual_curso?: string;
 
   @IsNotEmpty()
@@ -44,8 +45,10 @@ export class CreateInterviewDto {
   @IsNotEmpty()
   completado_mydigiskills: string;
 
+  @IsOptional()
   aplicante_apto?: string;
 
+  @IsOptional()
   mas_informacion?: string;
 
   //   extra python
