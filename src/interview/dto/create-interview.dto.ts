@@ -1,9 +1,11 @@
 import { IsNotEmpty, IsOptional } from '@nestjs/class-validator';
+import { Applicant } from 'src/applicant/entities/applicant.entity';
 
 export class CreateInterviewDto {
   @IsNotEmpty()
-  applicant_id: number;
+  applicant_id: Applicant;
 
+  @IsOptional()
   motivacion_curso?: string;
 
   @IsNotEmpty()
@@ -52,15 +54,15 @@ export class CreateInterviewDto {
   mas_informacion?: string;
 
   //   extra python
-  @IsNotEmpty()
-  que_es_programacion: string;
+  @IsOptional()
+  que_es_programacion?: string;
 
-  @IsNotEmpty()
-  nivel_entrevistado: string;
+  @IsOptional()
+  nivel_entrevistado?: string;
 
-  @IsNotEmpty()
-  logica_caracol: string;
+  @IsOptional()
+  logica_caracol?: string;
 
-  @IsNotEmpty()
-  nivel_ingles: string;
+  @IsOptional()
+  nivel_ingles?: string;
 }

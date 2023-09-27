@@ -11,8 +11,11 @@ export class InterviewController {
     return await this.interviewService.findOneByApplicantId(id);
   }
 
-  @Post()
-  async create(@Body() createInterviewDto: CreateInterviewDto) {
-    return await this.interviewService.create(createInterviewDto);
+  @Post('id/:id')
+  async create(
+    @Param('id') id: number,
+    @Body() createInterviewDto: CreateInterviewDto,
+  ) {
+    return await this.interviewService.create(id, createInterviewDto);
   }
 }

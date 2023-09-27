@@ -10,72 +10,72 @@ import { Applicant } from '../../applicant/entities/applicant.entity';
 @Entity()
 class Interview {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @OneToOne(() => Applicant, (applicant) => applicant.id)
-  @JoinColumn()
-  public applicant_id: number;
+  @JoinColumn({ name: 'applicant', referencedColumnName: 'id' })
+  applicant: number;
 
   @Column()
-  public motivacion_curso: string;
+  motivacion_curso: string;
 
   @Column()
-  public soporte_it: string;
+  soporte_it: string;
 
   @Column()
-  public desempeno_laboral: string;
+  desempeno_laboral: string;
 
   @Column()
-  public situacion_actual: string;
+  situacion_actual: string;
 
   @Column()
-  public otros_cursos: boolean;
+  otros_cursos: boolean;
 
   @Column()
-  public cual_curso: string;
+  cual_curso: string;
 
   @Column()
-  public disponibilidad: string;
+  disponibilidad: string;
 
   @Column()
-  public participar_zoom: string;
+  participar_zoom: string;
 
   @Column()
-  public encontrar_trabajo: string;
+  encontrar_trabajo: string;
 
   @Column()
-  public ajuste_calendario: boolean;
+  ajuste_calendario: boolean;
 
   @Column()
-  public conexion_semanal: string;
+  conexion_semanal: string;
 
   @Column()
-  public conocer_curso: string;
+  conocer_curso: string;
 
   @Column()
-  public beca_otra: string;
+  beca_otra: string;
 
   @Column()
-  public completado_mydigiskills: string;
+  completado_mydigiskills: string;
 
   @Column()
-  public aplicante_apto: string;
+  aplicante_apto: string;
 
   @Column()
-  public mas_informacion: string;
+  mas_informacion: string;
 
   //   extra python
   @Column()
-  public que_es_programacion: string;
+  que_es_programacion: string;
 
   @Column()
-  public nivel_entrevistado: string;
+  nivel_entrevistado: string;
 
   @Column()
-  public logica_caracol: string;
+  logica_caracol: string;
 
   @Column()
-  public nivel_ingles: string;
+  nivel_ingles: string;
 }
 
 export default Interview;
