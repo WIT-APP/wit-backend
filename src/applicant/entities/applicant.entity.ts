@@ -104,6 +104,9 @@ export class Applicant {
   @Column({ type: 'text', nullable: true })
   observaciones: string;
 
+  @Column({ type: 'text', nullable: true })
+  invitaciones: string;
+
   @OneToOne(() => Interview, (interview) => interview.applicant)
   interview_id: number;
 }

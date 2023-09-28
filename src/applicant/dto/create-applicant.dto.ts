@@ -88,4 +88,7 @@ export class CreateApplicantDto {
 
   @IsOptional()
   observaciones?: string;
+
+  @IsOptional()
+  invitaciones?: string;
 }

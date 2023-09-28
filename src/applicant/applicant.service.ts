@@ -135,10 +135,28 @@ export class ApplicantService {
   }
 
   async findByEstado(estado: string): Promise<Applicant[]> {
-    const applicants = await this.applicantRepository.find({
-      where: { estado },
-    });
-
+    let applicants: Applicant[];
+    if (estado === 'Aplicante') {
+        // Fetch all applicants
+        applicants = await this.applicantRepository.find();
+    
+        // Group applicants by email
+        const groupedApplicants: { [email: string]: Applicant[] } = {};
+        applicants.forEach(applicant => {
+          const email = applicant.correo_electronico;
+          if (groupedApplicants[email]) {
+            groupedApplicants[email].push(applicant);
+          } else {
+            groupedApplicants[email] = [applicant];
+          }
+        });
+    
+        applicants = Object.values(groupedApplicants).flat();
+    } else {
+      applicants = await this.applicantRepository.find({
+        where: { estado },
+      });
+    }
     if (applicants.length === 0) {
       throw new HttpException(
         'No se encontraron personas en este estado.',
@@ -222,6 +240,7 @@ export class ApplicantService {
     applicant.encontrar_programa = updateApplicantDto.encontrar_programa;
     applicant.mas_informacion = updateApplicantDto.mas_informacion;
     applicant.observaciones = updateApplicantDto.observaciones;
+    applicant.invitaciones = updateApplicantDto.invitaciones;
 
     const updatedApplicant = await this.applicantRepository.save(applicant);
     return updatedApplicant;
