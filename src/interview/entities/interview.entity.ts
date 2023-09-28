@@ -16,6 +16,9 @@ class Interview {
   @JoinColumn({ name: 'applicant', referencedColumnName: 'id' })
   applicant: number;
 
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  fecha_de_applicacion: Date;
+
   @Column()
   motivacion_curso: string;
 
