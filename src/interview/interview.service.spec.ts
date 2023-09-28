@@ -13,11 +13,11 @@ describe('InterviewService', () => {
 
   const mockInterviewRepository = {
     create: jest.fn(),
-    findOneByApplicantId: jest.fn(),
+    findByApplicantId: jest.fn(),
   };
 
   const createInterviewDTO: CreateInterviewDto = {
-    applicant_id: 1,
+    applicant: 1,
     motivacion_curso: 'buena motivacion',
     soporte_it: 'buen soporte',
     desempeno_laboral: 'buen desempeño laboral',
@@ -42,7 +42,7 @@ describe('InterviewService', () => {
 
   const createdInterview = {
     id: 1,
-    aplicant_id: 1,
+    aplicant: 1,
     motivacion_curso: 'buena motivacion',
     soporte_it: 'buen soporte',
     desempeno_laboral: 'buen desempeño laboral',
@@ -94,35 +94,35 @@ describe('InterviewService', () => {
 
     it('should throw an error if create fails', async () => {
       mockInterviewRepository.create.mockRejectedValue(
-        new Error('Failed to submit form.'),
+        new Error('Error al ingresar entrevista.'),
       );
 
       await expect(service.create(createInterviewDTO)).rejects.toThrowError(
-        'Failed to submit form.',
+        'Error al ingresar entrevista.',
       );
     });
   });
 
-  describe('findOneByApplicantId', () => {
+  describe('findByApplicantId', () => {
     it('should return a single Interview', async () => {
-      const applicant_id = 1;
+      const applicant = 1;
 
-      mockInterviewRepository.findOneByApplicantId.mockResolvedValue(
+      mockInterviewRepository.findByApplicantId.mockResolvedValue(
         createdInterview,
       );
 
-      const result = await service.findOneByApplicantId(applicant_id);
+      const result = await service.findByApplicantId(applicant);
 
       expect(result).toBe(createdInterview);
     });
 
     it('should throw a NotFoundException if Interview is not found', async () => {
-      const applicant_id = 1;
+      const applicant = 1;
 
-      mockInterviewRepository.findOneByApplicantId.mockResolvedValue(null);
+      mockInterviewRepository.findByApplicantId.mockResolvedValue(null);
 
       try {
-        await service.findOneByApplicantId(applicant_id);
+        await service.findByApplicantId(applicant);
       } catch (error) {
         expect(error).toBeInstanceOf(NotFoundException);
         expect(error.message).toBe('Entrevista no encontrada');
@@ -130,14 +130,12 @@ describe('InterviewService', () => {
     });
 
     it('should throw an InternalServerErrorException on error', async () => {
-      const applicant_id = 1;
+      const applicant = 1;
 
-      mockInterviewRepository.findOneByApplicantId.mockRejectedValue(
-        new Error(),
-      );
+      mockInterviewRepository.findByApplicantId.mockRejectedValue(new Error());
 
       try {
-        await service.findOneByApplicantId(applicant_id);
+        await service.findByApplicantId(applicant);
       } catch (error) {
         expect(error).toBeInstanceOf(InternalServerErrorException);
         expect(error.message).toBe('Error al recuperar la entrevista');

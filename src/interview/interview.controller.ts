@@ -16,8 +16,8 @@ export class InterviewController {
     return await this.interviewService.create(createInterviewDto);
   }
 
-  @Get('applicant/:applicant_id')
-  async findByApplicantId(@Param('applicant_id') applicant_id: number) {
-    return await this.interviewService.findByApplicantId(applicant_id);
+  @Get('applicant/:applicant')
+  async findByApplicantId(@Param('applicant') applicant: number) {
+    return await this.interviewService.findByApplicantId(applicant);
   }
 }
