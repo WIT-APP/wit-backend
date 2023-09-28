@@ -69,7 +69,7 @@ export class ApplicantService {
 
     const updateQuery = `
       UPDATE applicant
-      SET estado = 'Preaprovado'
+      SET estado = 'Preaprobado'
       WHERE correo_electronico NOT IN (${nonUniqueEmails
         .map((email) => `'${email}'`)
         .join(',')})
@@ -86,7 +86,7 @@ export class ApplicantService {
         .map((email) => `'${email}'`)
         .join(',')})
       AND pais_de_residencia = 'España'
-      AND estado = 'Preaprovado';
+      AND estado = 'Preaprobado';
     `;
     const preaprovadoApplicants = await this.applicantRepository.query(
       preaprovadoQuery,
