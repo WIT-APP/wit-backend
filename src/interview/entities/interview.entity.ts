@@ -14,6 +14,7 @@ class Interview {
 
   @OneToOne(() => Applicant, (applicant) => applicant.id)
   @JoinColumn({ name: 'applicant', referencedColumnName: 'id' })
+  @Column()
   applicant: number;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
