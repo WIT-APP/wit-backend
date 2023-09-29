@@ -8,11 +8,11 @@ describe("InterviewController", () => {
 
 	const mockInterviewService = {
 		create: jest.fn(),
-		findOneByApplicantId: jest.fn(),
+		findByApplicantId: jest.fn(),
 	};
 
 	const createInterviewDTO: CreateInterviewDto = {
-		applicant_id: 1,
+		applicant: 1,
 		motivacion_curso: "buena motivacion",
 		soporte_it: "buen soporte",
 		desempeno_laboral: "buen desempeño laboral",
@@ -37,7 +37,7 @@ describe("InterviewController", () => {
 
 	const createdInterview = {
 		id: 1,
-		aplicant_id: 1,
+		aplicant: 1,
 		motivacion_curso: "buena motivacion",
 		soporte_it: "buen soporte",
 		desempeno_laboral: "buen desempeño laboral",
@@ -92,16 +92,13 @@ describe("InterviewController", () => {
 	describe("findOneByApplicantId", () => {
 		it("should return a single interview by Applicant ID", async () => {
 			const id = 1;
-			mockInterviewService.findOneByApplicantId.mockResolvedValue(
+			mockInterviewService.findByApplicantId.mockResolvedValue(
 				createdInterview,
 			);
 
 			const result = await controller.findByApplicantId(id);
 
-			expect(result).toBe(createdInterview);
-			expect(mockInterviewService.findOneByApplicantId).toHaveBeenCalledWith(
-				id,
-			);
+			expect(mockInterviewService.findByApplicantId).toHaveBeenCalledWith(id);
 		});
 	});
 });

@@ -3,7 +3,7 @@ import { Applicant } from "src/applicant/entities/applicant.entity";
 
 export class CreateInterviewDto {
 @IsNotEmpty()
-	applicant_id: Applicant;
+	applicant: number;
 
 @IsOptional()
 	motivacion_curso?: string;

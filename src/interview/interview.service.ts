@@ -31,9 +31,9 @@ export class InterviewService {
 		}
 	}
 
-	async findByApplicantId(applicant_id: number): Promise<Interview[]> {
-		const interviews = await this.interviewRepository.find({
-			where: { applicant: applicant_id },
+	async findByApplicantId(applicant: number): Promise<Interview> {
+		const interviews = await this.interviewRepository.findOne({
+			where: { applicant },
 		});
 
 		if (!interviews) {
