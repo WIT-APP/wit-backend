@@ -96,7 +96,7 @@ describe("InterviewController", () => {
 				createdInterview,
 			);
 
-			const result = await controller.findByApplicantId(id);
+			await controller.findByApplicantId(id);
 
 			expect(mockInterviewService.findByApplicantId).toHaveBeenCalledWith(id);
 		});

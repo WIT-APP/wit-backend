@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsOptional } from "@nestjs/class-validator";
-import { Applicant } from "src/applicant/entities/applicant.entity";
 
 export class CreateInterviewDto {
 @IsNotEmpty()

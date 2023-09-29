@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { TypeCategory, TypeField } from "./question.enum";
+import { TypeCategory } from "./question.enum";
 
 @Entity()
 export class Question {
