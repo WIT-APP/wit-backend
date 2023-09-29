@@ -16,7 +16,7 @@ describe('InterviewService', () => {
     findByApplicantId: jest.fn(),
   };
 
-  const createInterviewDTO: CreateInterviewDto = {
+  const createInterviewDto: CreateInterviewDto = {
     applicant: 1,
     motivacion_curso: 'buena motivacion',
     soporte_it: 'buen soporte',
@@ -85,9 +85,9 @@ describe('InterviewService', () => {
 
   describe('create', () => {
     it('should create an Interview', async () => {
-      mockInterviewRepository.create.mockResolvedValue(createdInterview);
+      mockInterviewRepository.create.mockResolvedValue(createInterviewDto);
 
-      const result = await service.create(createInterviewDTO);
+      const result = await service.create(createInterviewDto);
 
       expect(result).toBe(createdInterview);
     });
@@ -97,7 +97,7 @@ describe('InterviewService', () => {
         new Error('Error al ingresar entrevista.'),
       );
 
-      await expect(service.create(createInterviewDTO)).rejects.toThrowError(
+      await expect(service.create(createInterviewDto)).rejects.toThrowError(
         'Error al ingresar entrevista.',
       );
     });

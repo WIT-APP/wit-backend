@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Interview from './entities/interview.entity';
 import { Equal, Repository } from 'typeorm';
@@ -25,23 +29,29 @@ export class InterviewService {
 
   async create(createInterviewDto: CreateInterviewDto): Promise<Interview> {
     try {
-      return this.interviewRepository.save(createInterviewDto);
+      return await this.interviewRepository.save(createInterviewDto);
     } catch (error) {
       throw new Error('Error al ingresar entrevista.');
     }
   }
 
   async findByApplicantId(applicant: number): Promise<Interview> {
-    const interviews = await this.interviewRepository.findOne({
-      where: { applicant },
-    });
+    try {
+      const interviews = await this.interviewRepository.findOne({
+        where: { applicant },
+      });
 
-    if (!interviews) {
-      throw new NotFoundException(
-        'No se encontraron entrevistas para este solicitante',
+      if (!interviews) {
+        throw new NotFoundException(
+          'No se encontraron entrevistas para este solicitante',
+        );
+      }
+
+      return interviews;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error al recuperar la entrevista',
       );
     }
-
-    return interviews;
   }
 }
