@@ -1,23 +1,23 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { InterviewService } from './interview.service';
-import { CreateInterviewDto } from './dto/create-interview.dto';
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { InterviewService } from "./interview.service";
+import { CreateInterviewDto } from "./dto/create-interview.dto";
 
-@Controller('interview')
+@Controller("interview")
 export class InterviewController {
-  constructor(private interviewService: InterviewService) {}
+	constructor(private interviewService: InterviewService) {}
 
-  @Get('id/:id')
-  async findOneById(@Param('id') id: number) {
-    return await this.interviewService.findOneById(id);
-  }
+	@Get("id/:id")
+	async findOneById(@Param("id") id: number) {
+		return await this.interviewService.findOneById(id);
+	}
 
-  @Post()
-  async create(@Body() createInterviewDto: CreateInterviewDto) {
-    return await this.interviewService.create(createInterviewDto);
-  }
+	@Post()
+	async create(@Body() createInterviewDto: CreateInterviewDto) {
+		return await this.interviewService.create(createInterviewDto);
+	}
 
-  @Get('applicant/:applicant')
-  async findByApplicantId(@Param('applicant') applicant: number) {
-    return await this.interviewService.findByApplicantId(applicant);
-  }
+  @Get("applicant/:applicant")
+	async findByApplicantId(@Param("applicant") applicant: number) {
+		return await this.interviewService.findByApplicantId(applicant);
+	}
 }

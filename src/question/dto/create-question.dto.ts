@@ -1,24 +1,28 @@
-import { IsNotEmpty } from "@nestjs/class-validator";
+import { IsNotEmpty, IsOptional } from "@nestjs/class-validator";
 
 export class CreateQuestionDto {
-    
-    @IsNotEmpty()
-    text: string;
+	
+@IsNotEmpty()
+	text: string;
 
-    @IsNotEmpty()
-    type: string;
+@IsNotEmpty()
+	type: string;
    
-    @IsNotEmpty()
-    category: string;
+@IsNotEmpty()
+	category: string;
 
-    options?: string[];
+@IsOptional()
+	options?: string[];
 
-    placeholder?: string;
-    
-    expandText?: string;
+@IsOptional()
+	placeholder?: string;
+	
+@IsOptional()
+	expandText?: string;
 
-    id_question: string;
-    
-    @IsNotEmpty()
-    obligatory: boolean;
+@IsNotEmpty()
+	id_question: string;
+	
+@IsNotEmpty()
+	obligatory: boolean;
 }
