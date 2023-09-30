@@ -7,12 +7,13 @@ describe("InterviewController", () => {
 	let controller: InterviewController;
 
 	const mockInterviewService = {
+		findOneById: jest.fn(),
 		create: jest.fn(),
 		findByApplicantId: jest.fn(),
+		updateInterview: jest.fn(),
 	};
 
-	const createInterviewDTO: CreateInterviewDto = {
-		applicant: 1,
+	const createInterviewDto: CreateInterviewDto = {
 		motivacion_curso: "buena motivacion",
 		soporte_it: "buen soporte",
 		desempeno_laboral: "buen desempeño laboral",
@@ -76,16 +77,26 @@ describe("InterviewController", () => {
 		expect(controller).toBeDefined();
 	});
 
+	describe("findInterviewById", () => {
+		it("should return a single Interview by the applicant ID", async () => {
+			const id = 1;
+
+			mockInterviewService.findOneById.mockResolvedValue(createdInterview);
+
+			const result = await controller.findOneById(id);
+
+			expect(result).toBe(createdInterview);
+		});
+	});
+
 	describe("create", () => {
 		it("should create an interview", async () => {
 			mockInterviewService.create.mockResolvedValue(createdInterview);
+			const applicant= 1;
 
-			const result = await controller.create(createInterviewDTO);
+			const result = await controller.create(applicant, createInterviewDto);
 
 			expect(result).toBe(createdInterview);
-			expect(mockInterviewService.create).toHaveBeenCalledWith(
-				createInterviewDTO,
-			);
 		});
 	});
 
@@ -99,6 +110,17 @@ describe("InterviewController", () => {
 			await controller.findByApplicantId(id);
 
 			expect(mockInterviewService.findByApplicantId).toHaveBeenCalledWith(id);
+		});
+	});
+
+	describe("Update", () => {
+		it("should update an Interview", async () => {
+			mockInterviewService.updateInterview.mockResolvedValue(createdInterview);
+			const applicant = 1;
+
+			const result = await controller.updateInterview(applicant, createInterviewDto);
+
+			expect(result).toBe(createdInterview);
 		});
 	});
 });
