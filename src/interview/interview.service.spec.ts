@@ -16,7 +16,6 @@ describe("InterviewService", () => {
 	};
 
 	const createInterviewDto: CreateInterviewDto = {
-		applicant: 1,
 		motivacion_curso: "buena motivacion",
 		soporte_it: "buen soporte",
 		desempeno_laboral: "buen desempeño laboral",
@@ -85,8 +84,9 @@ describe("InterviewService", () => {
 	describe("create", () => {
 		it("should create an Interview", async () => {
 			mockInterviewRepository.save.mockResolvedValue(createdInterview);
+			const applicant = 1;
 
-			const result = await service.create(createInterviewDto);
+			const result = await service.create(applicant, createInterviewDto);
 
 			expect(result).toBe(createdInterview);
 		});
@@ -95,8 +95,8 @@ describe("InterviewService", () => {
 			mockInterviewRepository.save.mockRejectedValue(
 				new Error("Error al ingresar entrevista."),
 			);
-
-			await expect(service.create(createInterviewDto)).rejects.toThrowError(
+			const applicant = 1;
+			await expect(service.create(applicant, createInterviewDto)).rejects.toThrowError(
 				"Error al ingresar entrevista.",
 			);
 		});
@@ -124,6 +124,28 @@ describe("InterviewService", () => {
 				expect(error).toBeInstanceOf(InternalServerErrorException);
 				expect(error.message).toBe("Error al recuperar la entrevista");
 			}
+		});
+	});
+
+	describe("Update", () => {
+		it("should update an Interview", async () => {
+			mockInterviewRepository.findOne.mockResolvedValue(createdInterview);
+			mockInterviewRepository.save.mockResolvedValue(createdInterview);
+			const applicant = 1;
+
+			const result = await service.updateInterview(applicant, createInterviewDto);
+
+			expect(result).toBe(createdInterview);
+		});
+
+		it("should throw an error if update fails", async () => {
+			mockInterviewRepository.save.mockRejectedValue(
+				new Error("Error al ingresar entrevista."),
+			);
+			const applicant = 1;
+			await expect(service.updateInterview(applicant, createInterviewDto)).rejects.toThrowError(
+				"Error al ingresar entrevista.",
+			);
 		});
 	});
 });

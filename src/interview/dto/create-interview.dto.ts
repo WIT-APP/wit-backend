@@ -1,9 +1,6 @@
 import { IsNotEmpty, IsOptional } from "@nestjs/class-validator";
 
 export class CreateInterviewDto {
-@IsNotEmpty()
-	applicant: number;
-
 @IsOptional()
 	motivacion_curso?: string;
 
