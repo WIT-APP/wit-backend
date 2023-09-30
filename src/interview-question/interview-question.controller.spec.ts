@@ -13,13 +13,13 @@ describe("InterviewQuestionController", () => {
 		findOne: jest.fn(),
 	};
 	const createInterviewQuestionDto: CreateInterviewQuestionDto = {
-		text: "",
-		type: "",
-		category: "",
-		options: [],
+		text: "Question 1",
+		type: "text",
+		category: "Academica",
+		options: ["Option 1", "Option 2"],
 		placeholder: null,
-		expandText: "",
-		id_question: "",
+		expandText: "Lorem ipsum dolor sit am",
+		id_question: "Question 1",
 		obligatory: true
 	};
   
