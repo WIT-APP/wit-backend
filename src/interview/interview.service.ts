@@ -17,15 +17,21 @@ export class InterviewService {
 	) {}
 
 	async findOneById(id: number): Promise<Interview> {
-		const interview = await this.interviewRepository.findOne({
-			where: { id },
-		});
+		try{
+			const interview = await this.interviewRepository.findOne({
+				where: { id },
+			});
 
-		if (!interview) {
-			throw new NotFoundException("Entrevista no encontrada");
+			if (!interview) {
+				throw new NotFoundException("Entrevista no encontrada");
+			}
+
+			return interview;
+		} catch (error) {
+			throw new InternalServerErrorException(
+				"Error al recuperar la entrevista",
+			);
 		}
-
-		return interview;
 	}
 
 	async create(applicant: number, createInterviewDto: CreateInterviewDto): Promise<Interview> {

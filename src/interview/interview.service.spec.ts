@@ -81,6 +81,31 @@ describe("InterviewService", () => {
 		expect(service).toBeDefined();
 	});
 
+	describe("findInterviewById", () => {
+		it("should return a single Interview by the applicant ID", async () => {
+			const id = 1;
+
+			mockInterviewRepository.findOne.mockResolvedValue(createdInterview);
+
+			const result = await service.findOneById(id);
+
+			expect(result).toBe(createdInterview);
+		});
+
+		it("should throw an InternalServerErrorException on error", async () => {
+			const id = 1;
+
+			mockInterviewRepository.findOne.mockRejectedValue(new Error());
+
+			try {
+				await service.findOneById(id);
+			} catch (error) {
+				expect(error).toBeInstanceOf(InternalServerErrorException);
+				expect(error.message).toBe("Error al recuperar la entrevista");
+			}
+		});
+	});
+
 	describe("create", () => {
 		it("should create an Interview", async () => {
 			mockInterviewRepository.save.mockResolvedValue(createdInterview);
