@@ -77,7 +77,7 @@ export class ApplicantService {
       AND estado = 'Aplicante'
       RETURNING *;
     `;
-		const updatedApplicants = await this.applicantRepository.query(updateQuery);
+		await this.applicantRepository.query(updateQuery);
 
 		const preaprovadoQuery = `
       SELECT *

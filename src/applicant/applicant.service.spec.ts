@@ -289,7 +289,7 @@ describe("ApplicantService", () => {
 				await service.findOneById(id);
 			} catch (error) {
 				expect(error).toBeInstanceOf(NotFoundException);
-				expect(error.message).toBe("Usuario no encontrado");
+				expect(error.message).toBe("Aspirante no encontrado");
 			}
 		});
 
