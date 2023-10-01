@@ -90,5 +90,5 @@ export class CreateApplicantDto {
   	observaciones?: string;
 
   @IsOptional()
-  	invitaciones?: string;
+  	invitaciones?: number;
 }
