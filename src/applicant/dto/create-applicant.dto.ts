@@ -75,7 +75,7 @@ export class CreateApplicantDto {
   	acceso_internet_dispositivos: string;
 
   @IsNotEmpty()
-  	formacion_online: boolean;
+  	formacion_online: string;
 
   @IsNotEmpty()
   	razones_para_unir: string;

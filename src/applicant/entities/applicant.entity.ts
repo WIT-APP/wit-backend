@@ -89,8 +89,8 @@ export class Applicant {
   @Column()
   	acceso_internet_dispositivos: string;
 
-  @Column({ type: "boolean" })
-  	formacion_online: boolean;
+  @Column({ type: "text" })
+  	formacion_online: string;
 
   @Column({ type: "text" })
   	razones_para_unir: string;

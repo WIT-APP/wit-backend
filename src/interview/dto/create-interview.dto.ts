@@ -1,46 +1,46 @@
-import { IsNotEmpty, IsOptional } from "@nestjs/class-validator";
+import { IsOptional } from "@nestjs/class-validator";
 
 export class CreateInterviewDto {
 @IsOptional()
 	motivacion_curso?: string;
 
-@IsNotEmpty()
+@IsOptional()
 	soporte_it: string;
 
-@IsNotEmpty()
+@IsOptional()
 	desempeno_laboral: string;
 
-@IsNotEmpty()
+@IsOptional()
 	situacion_actual: string;
 
-@IsNotEmpty()
-	otros_cursos: boolean;
+@IsOptional()
+	otros_cursos: string;
 
 @IsOptional()
 	cual_curso?: string;
 
-@IsNotEmpty()
+@IsOptional()
 	disponibilidad: string;
 
-@IsNotEmpty()
+@IsOptional()
 	participar_zoom: string;
 
-@IsNotEmpty()
+@IsOptional()
 	encontrar_trabajo: string;
 
-@IsNotEmpty()
-	ajuste_calendario: boolean;
+@IsOptional()
+	ajuste_calendario: string;
 
-@IsNotEmpty()
+@IsOptional()
 	conexion_semanal: string;
 
-@IsNotEmpty()
+@IsOptional()
 	conocer_curso: string;
 
-@IsNotEmpty()
+@IsOptional()
 	beca_otra: string;
 
-@IsNotEmpty()
+@IsOptional()
 	completado_mydigiskills: string;
 
 @IsOptional()

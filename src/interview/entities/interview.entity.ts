@@ -34,7 +34,7 @@ class Interview {
   	situacion_actual: string;
 
   @Column()
-  	otros_cursos: boolean;
+  	otros_cursos: string;
 
   @Column()
   	cual_curso: string;
@@ -49,7 +49,7 @@ class Interview {
   	encontrar_trabajo: string;
 
   @Column()
-  	ajuste_calendario: boolean;
+  	ajuste_calendario: string;
 
   @Column()
   	conexion_semanal: string;

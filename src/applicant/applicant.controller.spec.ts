@@ -46,7 +46,7 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 		observaciones: ""
@@ -75,7 +75,7 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 		estado: "Aplicante",
@@ -105,7 +105,7 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 		estado: "Aplicante",
@@ -134,7 +134,7 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 		estado: "Invitado",
@@ -163,7 +163,7 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 		estado: "Rechazado",
@@ -192,7 +192,7 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 		estado: "Matriculado",
@@ -397,7 +397,7 @@ describe("ApplicantController", () => {
 				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 				dedicacion_semanal: 0,
 				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-				formacion_online: false,
+				formacion_online: "Si",
 				razones_para_unir: "Lorem Ipsum",
 				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 				estado: "Matriculado",
@@ -407,7 +407,7 @@ describe("ApplicantController", () => {
 				estudio_mas_alto: "",
 				mas_informacion: "",
 				observaciones: "",
-				invitaciones: "",
+				invitaciones: 0,
 				interview_id: 0
 			};
 	
@@ -445,7 +445,7 @@ describe("ApplicantController", () => {
 				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 				dedicacion_semanal: 0,
 				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-				formacion_online: false,
+				formacion_online: "Si",
 				razones_para_unir: "Lorem Ipsum",
 				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 				estado: "Matriculado",
@@ -455,7 +455,7 @@ describe("ApplicantController", () => {
 				estudio_mas_alto: "",
 				mas_informacion: "",
 				observaciones: "",
-				invitaciones: "",
+				invitaciones: 0,
 				interview_id: 0
 			};	  
 			mockApplicantService.updateApplicant.mockResolvedValue(updatedApplicant);	
@@ -494,7 +494,7 @@ describe("ApplicantController", () => {
 				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 				dedicacion_semanal: 0,
 				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-				formacion_online: false,
+				formacion_online: "Si",
 				razones_para_unir: "Lorem Ipsum",
 				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
 				estado: "Matriculado",
@@ -504,7 +504,7 @@ describe("ApplicantController", () => {
 				estudio_mas_alto: "",
 				mas_informacion: "",
 				observaciones: "",
-				invitaciones: "",
+				invitaciones: 0,
 				interview_id: 0
 			};
 	
