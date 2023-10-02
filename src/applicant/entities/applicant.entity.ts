@@ -22,7 +22,7 @@ export class Applicant {
   	correo_electronico: string;
 
 @Column()
-  	telefono: number;
+  	telefono: string;
 
 @Column({ default: "Aplicante" })
   	estado: string;
@@ -57,7 +57,7 @@ export class Applicant {
 
   @Length(5, 5)
   @Column()
-  	codigo_postal: number;
+  	codigo_postal: string;
 
   @Column()
   	pais_de_residencia: string;
@@ -84,7 +84,7 @@ export class Applicant {
   	intereses_actuales: string;
 
   @Column()
-  	dedicacion_semanal: number;
+  	dedicacion_semanal: string;
 
   @Column()
   	acceso_internet_dispositivos: string;
