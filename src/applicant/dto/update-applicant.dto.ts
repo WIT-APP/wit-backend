@@ -6,7 +6,7 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	nombre?: string;
 	apellidos?: string;
 	correo_electronico?: string;
-	telefono?: number;
+	telefono?: string;
 	estado?: string;
 	genero?: string;
 	fecha_de_nacimiento?: Date;
@@ -17,7 +17,7 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	direccion?: string;
 	ciudad?: string;
 	provincia?: string;
-	codigo_postal?: number;
+	codigo_postal?: string;
 	pais_de_residencia?: string;
 	programa_cursar?: string;
 	permiso?: string;
@@ -26,7 +26,7 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	estudio_mas_alto?: string;
 	situacion_profesional?: string;
 	intereses_actuales?: string;
-	dedicacion_semanal?: number;
+	dedicacion_semanal?: string;
 	acceso_internet_dispositivos?: string;
 	formacion_online?: string;
 	razones_para_unir?: string;

@@ -12,7 +12,7 @@ export class CreateApplicantDto {
   	correo_electronico: string;
 
   @IsNotEmpty()
-  	telefono: number;
+  	telefono: string;
 
   @IsNotEmpty()
   	genero: string;
@@ -42,7 +42,7 @@ export class CreateApplicantDto {
   	provincia: string;
 
   @IsNotEmpty()
-  	codigo_postal: number;
+  	codigo_postal: string;
 
   @IsNotEmpty()
   	pais_de_residencia: string;
@@ -69,7 +69,7 @@ export class CreateApplicantDto {
   	intereses_actuales: string;
 
   @IsNotEmpty()
-  	dedicacion_semanal: number;
+  	dedicacion_semanal: string;
 
   @IsNotEmpty()
   	acceso_internet_dispositivos: string;
