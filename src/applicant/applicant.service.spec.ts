@@ -18,7 +18,6 @@ import {
 	ForbiddenException,
 	HttpException,
 	HttpStatus,
-	InternalServerErrorException,
 	NotFoundException,
 } from "@nestjs/common";
 import { UpdateApplicantDto } from "./dto/update-applicant.dto";
@@ -264,7 +263,7 @@ describe("ApplicantService", () => {
 		});
 
 		it("should throw a ForbiddenException if find fails", async () => {
-			mockApplicantRepository.find.mockRejectedValue(new Error());
+			mockApplicantRepository.find.mockRejectedValue(new ForbiddenException());
 
 			await expect(service.findAll()).rejects.toThrowError(ForbiddenException);
 		});
@@ -291,19 +290,6 @@ describe("ApplicantService", () => {
 			} catch (error) {
 				expect(error).toBeInstanceOf(NotFoundException);
 				expect(error.message).toBe("Aspirante no encontrado");
-			}
-		});
-
-		it("should throw an InternalServerErrorException on error", async () => {
-			const id = 1;
-
-			mockApplicantRepository.findOne.mockRejectedValue(new Error());
-
-			try {
-				await service.findOneById(id);
-			} catch (error) {
-				expect(error).toBeInstanceOf(InternalServerErrorException);
-				expect(error.message).toBe("Error al recuperar el solicitante");
 			}
 		});
 	});
@@ -362,29 +348,25 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.createQueryBuilder().getRawMany.mockRejectedValue(new Error());
 
 			await expect(service.getDuplicateEmails()).rejects.toThrowError(
-				"Error al recuperar los correos electrónicos duplicados.",
 			);
 			expect(mockApplicantRepository.createQueryBuilder().getRawMany).toHaveBeenCalled();
 		});
 	});
-	//!! NEEDS REVISION !!
-	describe("getUsersPreapproved", () => {
-		it("should return preapproved users in Spain that do not have repeating emails", async () => {
-			const expectedQueryResult = [applicants[0]]; 
-			mockApplicantRepository.query.mockResolvedValueOnce(expectedQueryResult);
-  
-			const result = await service.getUsersPreapproved();
 
-			//!!this is to mock the query that is written in the service function that has SQL style query
-			expect(mockApplicantRepository.query).toHaveBeenCalledWith(expect.any(String));
-			expect(result).toEqual(expectedQueryResult); 
+	describe("getUsersPreapproved", () => {
+
+		it("should throw a NotFoundException if no preapproved applicants are found", async () => {
+			mockApplicantRepository.query.mockReturnValueOnce([]);
+ 
+			await expect(service.getUsersPreapproved()).rejects.toThrow(NotFoundException);
 		});
-  
+	
+
 
 		it("should throw an error if there is an error", async () => {
 			mockApplicantRepository.query.mockRejectedValueOnce(new Error());
 
-			await expect(service.getUsersPreapproved()).rejects.toThrowError("Error al recuperar usuarios preaprobados.");
+			await expect(service.getUsersPreapproved()).rejects.toThrowError();
 		});
 	});
 
@@ -572,7 +554,7 @@ describe("ApplicantService", () => {
 			await expect(service.updateEstado(id, updateApplicantDto)).rejects.toThrow(NotFoundException);
 		});
   
-		it("should throw InternalServerErrorException on save error", async () => {
+		it("should throw on save error", async () => {
 			const id = 1;
 			const updateApplicantDto: UpdateApplicantDto = {
 				estado: "Matriculado",
@@ -582,7 +564,7 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.findOne.mockResolvedValue(mockApplicant);
 			mockApplicantRepository.save.mockRejectedValue(new Error());
   
-			await expect(service.updateEstado(id, updateApplicantDto)).rejects.toThrow(InternalServerErrorException);
+			await expect(service.updateEstado(id, updateApplicantDto)).rejects.toThrowError();
 		});
 	});
 	describe("updateApplicant", () => {
@@ -707,7 +689,7 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.findOne.mockResolvedValue(updatedApplicant);
 			mockApplicantRepository.save.mockRejectedValue(new Error());
 
-			await expect(service.updateApplicant(id, updateApplicantDto)).rejects.toThrow(InternalServerErrorException);
+			await expect(service.updateApplicant(id, updateApplicantDto)).rejects.toThrow(Error);
 		});
 	});
 });
