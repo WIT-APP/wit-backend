@@ -1,49 +1,49 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IsDate, IsEmail, Length } from "@nestjs/class-validator";
+import Interview from "../../interview/entities/interview.entity";
 
 @Entity()
 export class Applicant {
-  @PrimaryGeneratedColumn()
+@PrimaryGeneratedColumn()
   	id: number;
 
-  @Column({ default: () => "CURRENT_TIMESTAMP" })
+@Column({ default: () => "CURRENT_TIMESTAMP" })
   	fecha_de_applicacion: Date;
 
-  @Column()
+@Column()
   	nombre: string;
 
-  @Column()
+@Column()
   	apellidos: string;
 
-  @IsEmail()
-  @Column()
+@IsEmail()
+@Column()
   	correo_electronico: string;
 
-  @Column()
+@Column()
   	telefono: number;
 
-
-  @Column({default: "Aplicante"})
+@Column({ default: "Aplicante" })
   	estado: string;
 
-  @Column()
+@Column()
   	genero: string;
 
-  @IsDate()
-  @Column({ type: "date" })
+@IsDate()
+@Column({ type: "date" })
   	fecha_de_nacimiento: Date;
 
-  @Column()
+@Column()
   	pais_de_nacimiento: string;
 
-  @Column()
+@Column()
   	documento_de_identidad: string;
 
-  @Column({ nullable: true })
+@Column({ nullable: true })
   	tipo_documento_identidad: string;
 
-  @Column()
+@Column()
   	numero_documento_id: string;
 
   @Column()
@@ -89,8 +89,8 @@ export class Applicant {
   @Column()
   	acceso_internet_dispositivos: string;
 
-  @Column({ type: "boolean" })
-  	formacion_online: boolean;
+  @Column({ type: "text" })
+  	formacion_online: string;
 
   @Column({ type: "text" })
   	razones_para_unir: string;
@@ -100,4 +100,13 @@ export class Applicant {
 
   @Column({ type: "text", nullable: true })
   	mas_informacion: string;
+
+  @Column({ type: "text", nullable: true })
+  	observaciones: string;
+
+  @Column({default: 0 })
+  	invitaciones: number;
+
+  @OneToOne(() => Interview, (interview) => interview.applicant)
+  	interview_id: number;
 }

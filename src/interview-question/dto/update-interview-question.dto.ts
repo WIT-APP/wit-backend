@@ -1,7 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
-import { CreateQuestionDto } from "./create-question.dto";
+import { CreateInterviewQuestionDto } from "./create-interview-question.dto";
 
-export class UpdateQuestionDto extends PartialType(CreateQuestionDto) {
+export class UpdateInterviewQuestionDto extends PartialType(CreateInterviewQuestionDto) {
 	text?: string;
 	type?: string;
 	options?: string[];

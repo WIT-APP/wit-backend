@@ -28,8 +28,10 @@ export class UpdateApplicantDto extends PartialType(CreateApplicantDto) {
 	intereses_actuales?: string;
 	dedicacion_semanal?: number;
 	acceso_internet_dispositivos?: string;
-	formacion_online?: boolean;
+	formacion_online?: string;
 	razones_para_unir?: string;
 	encontrar_programa?: string;
 	mas_informacion?: string;
+	observaciones?: string;
+	invitaciones?: number;
 }

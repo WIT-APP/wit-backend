@@ -4,7 +4,7 @@ import { ApplicantService } from "./applicant.service";
 import { CreateApplicantDto } from "./dto/create-applicant.dto";
 import { TipoAccessoInternetDispositivos, TipoColectivo, TipoEducacion, TipoEncontrarPrograma, TipoGenero, TipoId, TipoInteresesActuales, TipoProgramaDeseado, TipoSituacionProfesional } from "./entities/applicant.enums";
 import { Applicant } from "./entities/applicant.entity";
-import { ConflictException } from "@nestjs/common";
+import { UpdateApplicantDto } from "./dto/update-applicant.dto";
 
 describe("ApplicantController", () => {
 	let controller: ApplicantController;
@@ -20,6 +20,8 @@ describe("ApplicantController", () => {
 		findByEmail: jest.fn(),
 		getDuplicateEmails: jest.fn(),
 		getUsersPreapproved: jest.fn(),
+		updateEstado: jest.fn(),
+		updateApplicant: jest.fn(),
 	};
 
 	const createApplicantDto: CreateApplicantDto = {
@@ -44,9 +46,10 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
-		encontrar_programa: TipoEncontrarPrograma.RedesSociales
+		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+		observaciones: ""
 	};
 
 	const createdApplicant = {
@@ -72,10 +75,11 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
-		estado: "Aplicante"
+		estado: "Aplicante",
+		observaciones: ""
 	}; 
 
 	const applicants = [{
@@ -101,10 +105,11 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
-		estado: "Aplicante"
+		estado: "Aplicante",
+		observaciones: ""
 	},
 	{
 		id: 2,
@@ -129,10 +134,11 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
-		estado: "Invitado"
+		estado: "Invitado",
+		observaciones: ""
 	},
 	{
 		id: 3,
@@ -157,10 +163,11 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
-		estado: "Rechazado"
+		estado: "Rechazado",
+		observaciones: ""
 	},
 	{
 		id: 4,
@@ -185,10 +192,11 @@ describe("ApplicantController", () => {
 		intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
 		dedicacion_semanal: 0,
 		acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
-		formacion_online: false,
+		formacion_online: "Si",
 		razones_para_unir: "Lorem Ipsum",
 		encontrar_programa: TipoEncontrarPrograma.RedesSociales,
-		estado: "Matriculado"
+		estado: "Matriculado",
+		observaciones: ""
 	},
 	]; 
 
@@ -241,6 +249,7 @@ describe("ApplicantController", () => {
 		});
 	});
 
+	
 	describe("findOneByEmail", () => {
 		it("should return a single applicant by email", async () => {
 			const email = "bob@example.com"; 
@@ -331,38 +340,182 @@ describe("ApplicantController", () => {
 		it("should return applicants for specified rcountry of esidence", async () => {
 			const residence = "USA";
 
-			mockApplicantService.findByResidence.mockResolvedValue  
-			(applicants.filter(applicant => applicant.pais_de_residencia === residence)
-			);
+			mockApplicantService.findByResidence.mockResolvedValue  (applicants.filter(applicant => applicant.pais_de_residencia === residence));
 
 			const result = await controller.getByResidence(residence);
-			console.log(result);
+			//console.log(result);
 			expect(result).toEqual([applicants[3]]);
 			expect(mockApplicantService.findByResidence).toHaveBeenCalledWith(residence);
 		});
 	});
-	describe('getByDuplicateEmails', () => {
-		it('should call getDuplicateEmails from service and return the result', async () => {
-		  const expectedResult = ['duplicate1@example.com', 'duplicate2@example.com'];
-		  mockApplicantService.getDuplicateEmails.mockResolvedValue(expectedResult);
-	
-		  const result = await controller.getByDuplicateEmails();
-	
-		  expect(result).toEqual(expectedResult);
-		  expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
+	describe("getByDuplicateEmails", () => {
+		it("should call getDuplicateEmails from service and return the result", async () => {
+			const expectedResult = ["duplicate1@example.com", "duplicate2@example.com"];
+			mockApplicantService.getDuplicateEmails.mockResolvedValue(expectedResult);
+		
+			const result = await controller.getByDuplicateEmails();
+		
+			expect(result).toEqual(expectedResult);
+			expect(mockApplicantService.getDuplicateEmails).toHaveBeenCalled();
 		});
-	  });
-	  describe('getByUsersPreapproved', () => {
-		it('should call getUsersPreapproved from service and return the result', async () => {
-		  const expectedResult= [applicants[0]]; 
-		  mockApplicantService.getUsersPreapproved.mockResolvedValue(expectedResult);
-	
-		  const result = await controller.getByUsersPreapproved();
-	
-		  expect(result).toEqual(expectedResult);
-		  expect(mockApplicantService.getUsersPreapproved).toHaveBeenCalled();
+	});
+	describe("getByUsersPreapproved", () => {
+		it("should call getUsersPreapproved from service and return the result", async () => {
+			const expectedResult= [applicants[0]]; 
+			mockApplicantService.getUsersPreapproved.mockResolvedValue(expectedResult);
+		
+			const result = await controller.getByUsersPreapproved();
+		
+			expect(result).toEqual(expectedResult);
+			expect(mockApplicantService.getUsersPreapproved).toHaveBeenCalled();
 		});
-	  });
+	});
+	describe("updateApplicant", () => {
+		it("should update an applicant - any one field", async () => {
+			const id = 1;
+			const updateApplicantDto: UpdateApplicantDto = {}; 
+			const updatedApplicant: Applicant = {
+				id: 1,
+				nombre: "John",
+				apellidos: "Smith",
+				correo_electronico: "john@example.com",
+				telefono: 64829471,
+				genero: TipoGenero.Hombre,
+				fecha_de_nacimiento: new Date(2000, 12, 16),
+				pais_de_nacimiento: "France",
+				documento_de_identidad: TipoId.DNI,
+				numero_documento_id: "Y2939789",
+				direccion: "c/Barcelona 1234",
+				ciudad: "Barcelona",
+				provincia: "Barcelona",
+				codigo_postal: 78953,
+				pais_de_residencia: "España",
+				programa_cursar: TipoProgramaDeseado.ITSupport,
+				colectivo: ["Mujer en situación de vulnerabilidad", "Minorías étnicas"],
+				educacion: TipoEducacion.SinEstudio,
+				situacion_profesional: TipoSituacionProfesional.SinIngresos,
+				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
+				dedicacion_semanal: 0,
+				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
+				formacion_online: "Si",
+				razones_para_unir: "Lorem Ipsum",
+				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+				estado: "Matriculado",
+				fecha_de_applicacion: undefined,
+				tipo_documento_identidad: "",
+				permiso: "",
+				estudio_mas_alto: "",
+				mas_informacion: "",
+				observaciones: "",
+				invitaciones: 0,
+				interview_id: 0
+			};
 	
+			mockApplicantService.updateApplicant.mockResolvedValue(updatedApplicant);	
+			await controller.updateApplicant(id, updateApplicantDto);
+	
+			expect(mockApplicantService.updateApplicant).toHaveBeenCalledWith(id, updateApplicantDto);
+		});
+		it("should update an applicant - some fields", async () => {
+			const id = 1;
+			const updateApplicantDto: UpdateApplicantDto = {
+				nombre: "Adam",
+				telefono: 738321987
+			}; 
+			const updatedApplicant: Applicant = {
+				id: 1,
+				nombre: "John",
+				apellidos: "Smith",
+				correo_electronico: "john@example.com",
+				telefono: 64829471,
+				genero: TipoGenero.Hombre,
+				fecha_de_nacimiento: new Date(2000, 12, 16),
+				pais_de_nacimiento: "France",
+				documento_de_identidad: TipoId.DNI,
+				numero_documento_id: "Y2939789",
+				direccion: "c/Barcelona 1234",
+				ciudad: "Barcelona",
+				provincia: "Barcelona",
+				codigo_postal: 78953,
+				pais_de_residencia: "España",
+				programa_cursar: TipoProgramaDeseado.ITSupport,
+				colectivo: ["Mujer en situación de vulnerabilidad", "Minorías étnicas"],
+				educacion: TipoEducacion.SinEstudio,
+				situacion_profesional: TipoSituacionProfesional.SinIngresos,
+				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
+				dedicacion_semanal: 0,
+				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
+				formacion_online: "Si",
+				razones_para_unir: "Lorem Ipsum",
+				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+				estado: "Matriculado",
+				fecha_de_applicacion: undefined,
+				tipo_documento_identidad: "",
+				permiso: "",
+				estudio_mas_alto: "",
+				mas_informacion: "",
+				observaciones: "",
+				invitaciones: 0,
+				interview_id: 0
+			};	  
+			mockApplicantService.updateApplicant.mockResolvedValue(updatedApplicant);	
+			await controller.updateApplicant(id, updateApplicantDto);	  
+			expect(mockApplicantService.updateApplicant).toHaveBeenCalledWith(id, updateApplicantDto);
+		});
+	});
+	
+	describe("updateEstado", () => {
+		it("should update an applicant estado", async () => {
+			const id = 1;
+			const updateApplicantDto: UpdateApplicantDto = {
+				estado: "Matriculado"
+			}; 
+		
+			const updatedApplicant: Applicant = {
+				id: 1,
+				nombre: "John",
+				apellidos: "Smith",
+				correo_electronico: "john@example.com",
+				telefono: 64829471,
+				genero: TipoGenero.Hombre,
+				fecha_de_nacimiento: new Date(2000, 12, 16),
+				pais_de_nacimiento: "France",
+				documento_de_identidad: TipoId.DNI,
+				numero_documento_id: "Y2939789",
+				direccion: "c/Barcelona 1234",
+				ciudad: "Barcelona",
+				provincia: "Barcelona",
+				codigo_postal: 78953,
+				pais_de_residencia: "España",
+				programa_cursar: TipoProgramaDeseado.ITSupport,
+				colectivo: ["Mujer en situación de vulnerabilidad", "Minorías étnicas"],
+				educacion: TipoEducacion.SinEstudio,
+				situacion_profesional: TipoSituacionProfesional.SinIngresos,
+				intereses_actuales: TipoInteresesActuales.CompetenciasTecnologicas,
+				dedicacion_semanal: 0,
+				acceso_internet_dispositivos: TipoAccessoInternetDispositivos.SinAcceso,
+				formacion_online: "Si",
+				razones_para_unir: "Lorem Ipsum",
+				encontrar_programa: TipoEncontrarPrograma.RedesSociales,
+				estado: "Matriculado",
+				fecha_de_applicacion: undefined,
+				tipo_documento_identidad: "",
+				permiso: "",
+				estudio_mas_alto: "",
+				mas_informacion: "",
+				observaciones: "",
+				invitaciones: 0,
+				interview_id: 0
+			};
+	
+			mockApplicantService.updateEstado.mockResolvedValue(updatedApplicant);
+			const result = await controller.updateEstado(id, updateApplicantDto);
+	
+			expect(mockApplicantService.updateEstado).toHaveBeenCalledWith(id, updateApplicantDto);
+			expect(result).toBeDefined(); 
+		});
+	});
 });
+	
+
 
