@@ -61,30 +61,6 @@ export class ApplicantController {
     	return this.applicantService.findByResidence("España");
   	}
 
-<<<<<<< HEAD
-  @Get('residence/:pais_de_residencia')
-  async getByResidence(
-    @Param('pais_de_residencia') pais_de_residencia: string,
-  ) {
-    return this.applicantService.findByResidence(pais_de_residencia);
-  }
-  @Patch('update-estado/:id')
-  async updateEstado(
-    @Param('id') id: number,
-    @Body() updateApplicantDto: UpdateApplicantDto,
-  ): Promise<Applicant> {
-    return this.applicantService.updateEstado(id, updateApplicantDto);
-  }
-  @Patch(':id')
-  async updateApplicant(
-    @Param('id') id: number,
-    @Body() updateApplicantDto: UpdateApplicantDto,
-  ) {
-    return this.applicantService.updateApplicant(id, updateApplicantDto);
-  } 
-
-
-=======
   	@Get("residence/:pais_de_residencia")
   	async getByResidence(@Param("pais_de_residencia") pais_de_residencia: string,) {
     	return this.applicantService.findByResidence(pais_de_residencia);
@@ -99,7 +75,6 @@ export class ApplicantController {
   	async updateEstado(@Param("id") id: number, @Body() updateApplicantDto: UpdateApplicantDto,): Promise<Applicant> {
     	return this.applicantService.updateEstado(id, updateApplicantDto);
   	}
->>>>>>> dev
 
   	@Delete(":id")
   	remove(@Param("id") id: string) {
