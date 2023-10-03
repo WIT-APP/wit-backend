@@ -8,7 +8,9 @@ async function bootstrap() {
 			"https://wit-frontend-1v1pqlfbf-wit-app.vercel.app",
 			"https://wit-frontend-git-main-wit-app.vercel.app",
 			"https://wit-frontend-green.vercel.app",
-			"https://wit-frontend-1v1pqlfbf-wit-app.vercel.app/newapplicant/register"
+			"https://wit-frontend-1v1pqlfbf-wit-app.vercel.app/newapplicant/register",
+			"https://wit-frontend-git-main-wit-app.vercel.app7newapplicant/register",
+			"https://wit-frontend-green.vercel.app/newapplicant/register",
 		],
 		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 		credentials: true,
