@@ -12,11 +12,13 @@ import { ApplicantService } from "./applicant.service";
 import { CreateApplicantDto } from "./dto/create-applicant.dto";
 import { UpdateApplicantDto } from "./dto/update-applicant.dto";
 import { Applicant } from "./entities/applicant.entity";
+import { Public } from "src/auth/public.decorator";
 
 @Controller("applicant")
 export class ApplicantController {
 	constructor(private readonly applicantService: ApplicantService) {}
 
+	@Public()
   	@Post()
 	async create(@Body() createApplicantDto: CreateApplicantDto) {
 		return await this.applicantService.create(createApplicantDto);
