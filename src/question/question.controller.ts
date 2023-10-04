@@ -5,6 +5,7 @@ import { CreateQuestionDto } from "./dto/create-question.dto";
 import { UpdateQuestionDto } from "./dto/update-question.dto";
 import { TypeCategory } from "./entities/question.enum";
 import {ApiTags} from "@nestjs/swagger";
+import { Public } from "src/auth/public.decorator";
 
 
 @ApiTags("register-question")
@@ -21,7 +22,8 @@ export class QuestionController {
 	findByCategory(@Query("category") category: TypeCategory) {
 		return this.questionService.findByCategory(category);
 	}
-
+	
+	@Public()
 	@Get()
 	findAll() {
 		return this.questionService.findAll();
