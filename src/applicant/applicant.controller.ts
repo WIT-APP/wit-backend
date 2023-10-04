@@ -45,11 +45,12 @@ export class ApplicantController {
   	}
 
   	// !! GET methods BY ONE
-
+	
   	@Get("id/:id")
   	async findOne(@Param("id") id: number) {
     	return await this.applicantService.findOneById(id);
   	}
+
 
   	@Get("email/:email")
   	async findOneByEmail(@Param("email") email: string) {
@@ -88,11 +89,3 @@ export class ApplicantController {
     	return this.applicantService.remove(+id);
   	}
 }
-
-/*  @Get('search')
-  async searchByKeyword(
-	@Query('keyword') keyword: string,
-  ): Promise<Applicant[]> {
-	const applicants = await this.applicantService.searchByKeyword(keyword);
-	return applicants;
-  } */

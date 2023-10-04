@@ -16,6 +16,7 @@ export class InterviewQuestionController {
 	create(@Body() createInterviewQuestionDto: CreateInterviewQuestionDto) {
 		return this.interviewQuestionService.create(createInterviewQuestionDto);
 	}
+
 	@Get()
 	findAll() {
 		return this.interviewQuestionService.findAll();

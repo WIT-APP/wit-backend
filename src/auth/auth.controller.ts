@@ -16,7 +16,6 @@ export class AuthController {
 	@Public()
 	@Post("sign-up")
 	async signUp(@Body() createUserDto: CreateUserDto) {
-		console.log("Received sign-up request:", createUserDto);
 		const { name, email, password } = createUserDto;
 		return this.userService.create({ name, email, password });
 	}
