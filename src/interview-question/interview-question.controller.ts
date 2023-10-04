@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestj
 import { InterviewQuestionService } from "./interview-question.service";
 import { CreateInterviewQuestionDto } from "./dto/create-interview-question.dto";
 import { UpdateInterviewQuestionDto } from "./dto/update-interview-question.dto";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags("interview-question")
 @Controller("interview-question")
 export class InterviewQuestionController {
 	constructor(private readonly interviewQuestionService: InterviewQuestionService) {}

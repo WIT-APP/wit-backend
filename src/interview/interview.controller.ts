@@ -2,7 +2,9 @@ import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { InterviewService } from "./interview.service";
 import { CreateInterviewDto } from "./dto/create-interview.dto";
 import { UpdateInterviewDto } from "./dto/update-interview.dto";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags("interview")
 @Controller("interview")
 export class InterviewController {
 	constructor(private interviewService: InterviewService) {}
