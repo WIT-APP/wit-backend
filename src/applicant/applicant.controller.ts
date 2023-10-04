@@ -12,11 +12,18 @@ import { ApplicantService } from "./applicant.service";
 import { CreateApplicantDto } from "./dto/create-applicant.dto";
 import { UpdateApplicantDto } from "./dto/update-applicant.dto";
 import { Applicant } from "./entities/applicant.entity";
+import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
+import { Public } from "src/auth/public.decorator";
 
+@ApiTags("applicant")
+@ApiBearerAuth()
 @Controller("applicant")
 export class ApplicantController {
 	constructor(private readonly applicantService: ApplicantService) {}
 
+	@Public()
+	@ApiCreatedResponse({ description: "The record has been successfully created."})
+	@ApiForbiddenResponse({ description: "Forbidden."})
   	@Post()
 	async create(@Body() createApplicantDto: CreateApplicantDto) {
 		return await this.applicantService.create(createApplicantDto);
@@ -38,11 +45,12 @@ export class ApplicantController {
   	}
 
   	// !! GET methods BY ONE
-
+	
   	@Get("id/:id")
   	async findOne(@Param("id") id: number) {
     	return await this.applicantService.findOneById(id);
   	}
+
 
   	@Get("email/:email")
   	async findOneByEmail(@Param("email") email: string) {
@@ -81,11 +89,3 @@ export class ApplicantController {
     	return this.applicantService.remove(+id);
   	}
 }
-
-/*  @Get('search')
-  async searchByKeyword(
-	@Query('keyword') keyword: string,
-  ): Promise<Applicant[]> {
-	const applicants = await this.applicantService.searchByKeyword(keyword);
-	return applicants;
-  } */

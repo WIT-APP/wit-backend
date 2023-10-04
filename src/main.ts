@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-// import * as path from "path";
-// import * as express from "express";
+import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -19,7 +19,19 @@ async function bootstrap() {
 		credentials: true,
 		allowedHeaders: "Content-Type,Authorization",
 	});
+
+	const config =new DocumentBuilder()
+		.setTitle("Work in Tech API")
+		.setDescription("API para la gestion de BECAS Google")
+		.setVersion("1.0")
+		.addBearerAuth()
+		.addTag("aplicantes")
+		.build();
+	const document = SwaggerModule.createDocument(app, config);
+	SwaggerModule.setup("api", app, document);
 	
 	await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
+
+

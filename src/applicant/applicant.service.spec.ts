@@ -380,7 +380,6 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.find.mockResolvedValue(invitadoApplicants);
 
 			const result = await service.findByEstado(estado);
-			//console.log(result);
 			expect(result).toEqual(invitadoApplicants);
 			expect(mockApplicantRepository.find).toHaveBeenCalledWith({
 				where: { estado },
@@ -396,7 +395,6 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.find.mockResolvedValue(MatriculadoApplicants);
 
 			const result = await service.findByEstado(estado);
-			//console.log(result);
 			expect(result).toEqual(MatriculadoApplicants);
 			expect(mockApplicantRepository.find).toHaveBeenCalledWith({
 				where: { estado },
@@ -412,7 +410,6 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.find.mockResolvedValue(RechazadoApplicants);
 
 			const result = await service.findByEstado(estado);
-			//console.log(result);
 			expect(result).toEqual(RechazadoApplicants);
 			expect(mockApplicantRepository.find).toHaveBeenCalledWith({
 				where: { estado },
@@ -428,7 +425,6 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.find.mockResolvedValue(AplicanteApplicants);
 
 			const result = await service.findByEstado(estado);
-			//console.log(result);
 			expect(result).toEqual(AplicanteApplicants);
 			expect(mockApplicantRepository.find).toHaveBeenCalledWith({
 				where: { estado },
@@ -462,8 +458,6 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.find.mockResolvedValue(residenceApplicants);
 
 			const result = await service.findByResidence(residence);
-
-			//console.log(result);
 			expect(result).toEqual(residenceApplicants);
 			expect(mockApplicantRepository.find).toHaveBeenCalledWith({
 				where: { pais_de_residencia: residence },

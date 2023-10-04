@@ -231,7 +231,6 @@ describe("ApplicantController", () => {
 			mockApplicantService.findAll.mockResolvedValue(applicants);
 
 			const result = await controller.findAll();
-			//console.log(result);
 			expect(result).toBe(applicants);
 			expect(mockApplicantService.findAll).toHaveBeenCalled();
 		});
@@ -274,7 +273,6 @@ describe("ApplicantController", () => {
   
 			const result = await controller.filterByEstado(estado);
 			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
-			//console.log(result);
 			expect(result).toEqual([applicants[0]]);
 			
 		});
@@ -289,7 +287,6 @@ describe("ApplicantController", () => {
 
 			const result = await controller.filterByEstado(estado);
 			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
-			//console.log(result);
 			expect(result).toEqual([applicants[1]]);
 		});
 
@@ -303,8 +300,6 @@ describe("ApplicantController", () => {
 
 			const result = await controller.filterByEstado(estado);
 			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
-
-			//console.log(result);
 			expect(result).toEqual([applicants[2]]);
 		});
 
@@ -317,7 +312,6 @@ describe("ApplicantController", () => {
 
 			const result = await controller.filterByEstado(estado);
 			expect(mockApplicantService.findByEstado).toHaveBeenCalledWith(estado);
-			//console.log(result);
 			expect(result).toEqual([applicants[3]]);
 		});
 
@@ -343,7 +337,6 @@ describe("ApplicantController", () => {
 			mockApplicantService.findByResidence.mockResolvedValue  (applicants.filter(applicant => applicant.pais_de_residencia === residence));
 
 			const result = await controller.getByResidence(residence);
-			//console.log(result);
 			expect(result).toEqual([applicants[3]]);
 			expect(mockApplicantService.findByResidence).toHaveBeenCalledWith(residence);
 		});
