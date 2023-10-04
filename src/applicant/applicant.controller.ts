@@ -12,15 +12,18 @@ import { ApplicantService } from "./applicant.service";
 import { CreateApplicantDto } from "./dto/create-applicant.dto";
 import { UpdateApplicantDto } from "./dto/update-applicant.dto";
 import { Applicant } from "./entities/applicant.entity";
-import {ApiTags} from "@nestjs/swagger";
+import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
 import { Public } from "src/auth/public.decorator";
 
 @ApiTags("applicant")
+@ApiBearerAuth()
 @Controller("applicant")
 export class ApplicantController {
 	constructor(private readonly applicantService: ApplicantService) {}
 
 	@Public()
+	@ApiCreatedResponse({ description: "The record has been successfully created."})
+	@ApiForbiddenResponse({ description: "Forbidden."})
   	@Post()
 	async create(@Body() createApplicantDto: CreateApplicantDto) {
 		return await this.applicantService.create(createApplicantDto);

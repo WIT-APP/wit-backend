@@ -24,6 +24,7 @@ async function bootstrap() {
 		.setTitle("Work in Tech API")
 		.setDescription("API para la gestion de BECAS Google")
 		.setVersion("1.0")
+		.addBearerAuth()
 		.addTag("aplicantes")
 		.build();
 	const document = SwaggerModule.createDocument(app, config);

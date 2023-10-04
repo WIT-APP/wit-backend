@@ -4,16 +4,19 @@ import { QuestionService } from "./question.service";
 import { CreateQuestionDto } from "./dto/create-question.dto";
 import { UpdateQuestionDto } from "./dto/update-question.dto";
 import { TypeCategory } from "./entities/question.enum";
-import {ApiTags} from "@nestjs/swagger";
+import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
 import { Public } from "src/auth/public.decorator";
 
 
 @ApiTags("register-question")
+@ApiBearerAuth()
 @Controller("question")
 export class QuestionController {
 	constructor(private readonly questionService: QuestionService) {}
 
 	@Post()
+	@ApiCreatedResponse({ description: "The record has been successfully created."})
+	@ApiForbiddenResponse({ description: "Forbidden."})
 	async create(@Body() createQuestionDto: CreateQuestionDto) {
 		return await this.questionService.create(createQuestionDto);
 	}
