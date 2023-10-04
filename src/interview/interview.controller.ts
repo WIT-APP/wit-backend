@@ -2,7 +2,10 @@ import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { InterviewService } from "./interview.service";
 import { CreateInterviewDto } from "./dto/create-interview.dto";
 import { UpdateInterviewDto } from "./dto/update-interview.dto";
+import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
 
+@ApiTags("interview")
+@ApiBearerAuth()
 @Controller("interview")
 export class InterviewController {
 	constructor(private interviewService: InterviewService) {}
@@ -12,6 +15,9 @@ export class InterviewController {
 		return await this.interviewService.findOneById(id);
 	}
 
+
+	@ApiCreatedResponse({ description: "The record has been successfully created."})
+	@ApiForbiddenResponse({ description: "Forbidden."})
 	@Post("applicant/:applicant")
 	async create(@Param("applicant") applicant: number, @Body() createInterviewDto: CreateInterviewDto) {
 		return await this.interviewService.create(applicant, createInterviewDto);
