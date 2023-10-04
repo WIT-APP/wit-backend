@@ -20,13 +20,13 @@ export class QuestionController {
 	async create(@Body() createQuestionDto: CreateQuestionDto) {
 		return await this.questionService.create(createQuestionDto);
 	}
-
+	
+	@Public()
 	@Get()
 	findByCategory(@Query("category") category: TypeCategory) {
 		return this.questionService.findByCategory(category);
 	}
-	
-	@Public()
+
 	@Get()
 	findAll() {
 		return this.questionService.findAll();
