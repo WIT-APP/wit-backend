@@ -1,73 +1,75 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Work in Tech (WIT) - Aplicación de Gestión de Becas
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descripción del Proyecto
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Bienvenido al repositorio de la aplicación de gestión de becas para el programa Work in Tech (WIT) de la Fundación Somos F5. Este proyecto tiene como objetivo centralizar y automatizar el proceso de registro de interés, selección, matriculación y seguimiento de las personas que participan en el programa WIT.
 
-## Description
+## Equipo de Desarrollo
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Scrum Master:** Alejandra Naranjo
+- **Product Owner:** Carlos Saiz
+- **Desarrolladores:**
+  - Angela García
+  - Deniz Ozerdogan
+  - Federico Martino
+  - Jesus Fajardo
 
-## Installation
+## Problema a Resolver
 
-```bash
-$ npm install
-```
+Actualmente, el equipo de WIT trabaja con una base de datos descentralizada gestionada de manera manual a través de archivos de Google Sheets. El proceso inicial recopila datos a través de un formulario de Google, y luego, en los pasos posteriores a la preinscripción, varias personas actualizan y manipulan estos datos, lo que ha afectado la integridad de la base de datos.
 
-## Running the app
+## Solución Propuesta
 
-```bash
-# development
-$ npm run start
+Nuestra solución es desarrollar una aplicación que simplifique y centralice la gestión de datos en todo el proceso de administración de becas de Work in Tech. Esto permitirá garantizar la integridad y precisión de los datos recopilados y actualizados. Además, nuestro objetivo es mejorar la experiencia del usuario, haciendo que el proceso sea más intuitivo y reduciendo la necesidad de pasos manuales.
 
-# watch mode
-$ npm run start:dev
+## Herramientas y Tecnologías Utilizadas
 
-# production mode
-$ npm run start:prod
-```
+- **React.js:** Biblioteca de JavaScript desarrollada por Facebook para la creación de interfaces de usuario (UI) interactivas y de una sola página.
+- **Vite:** Herramienta de construcción rápida y versátil para el desarrollo de aplicaciones web modernas.
+- **React Router:** Biblioteca de enrutamiento diseñada para aplicaciones web basadas en React.
+- **Lucide React:** Biblioteca de íconos Lucide para aplicaciones de React.
+- **Tailwind Forms:** Extensión de Tailwind CSS para crear formularios web con estilo de manera eficiente.
+- **Tailwind CSS:** Framework de diseño de código abierto para desarrollar interfaces de usuario de manera rápida y eficiente.
+- **PostgreSQL:** Sistema de gestión de bases de datos relacional (RDBMS) de código abierto.
+- **ElephantSQL:** Servicio en la nube para bases de datos PostgreSQL.
+- **Railway:** Plataforma de desarrollo para crear, implementar y administrar aplicaciones web y servicios en la nube.
+- **Vercel:** Plataforma de alojamiento en la nube para aplicaciones web y sitios estáticos.
+- **Vitest:** Framework de pruebas unitarias para JavaScript.
+- **Jest:** Framework de pruebas unitarias para JavaScript.
+- **Visual Studio Code:** Entorno de desarrollo de código abierto.
+- **Trello:** Plataforma de gestión de proyectos en línea.
+- **Slack:** Aplicación de mensajería empresarial.
+- **Discord:** Plataforma de comunicación para chat de voz y texto en tiempo real.
+- **Scrum:** Marco de trabajo ágil.
+- **GitHub:** Plataforma web para el desarrollo colaborativo de software.
 
-## Test
+## Guía de Configuración
 
-```bash
-# unit tests
-$ npm run test
+Para configurar y ejecutar la aplicación en su entorno local, siga los siguientes pasos:
 
-# e2e tests
-$ npm run test:e2e
+1. Clonar estos repositorios: 
+`git clone https://github.com/WIT-APP/wit-frontend`, 
+`git clone https://github.com/WIT-APP/wit-backend`
 
-# test coverage
-$ npm run test:cov
-```
+2. Instalar las dependencias: `npm install`
+React y React Dom: `npm install react react-dom`
+React Router: `npm install react-router-dom`
+Lucide React: `npm install lucide-react`
+Tailwind CSS y Tailwind Forms: `npm install tailwindcss tailwindcss/forms`
 
-## Support
+Dependencias de Desarrollo:
+Vite: `npm install --save-dev vite`
+Vitest y Jest: `npm install --save-dev vitest jest`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Dependencias de la Base de Datos
+PostgreSQL: `npm install pg`
 
-## Stay in touch
+3. Configurar la base de datos PostgreSQL y actualizar la configuración en `config.js`.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+4. Ejecutar la aplicación: `npm start`
 
-## License
+## Contacto
 
-Nest is [MIT licensed](LICENSE).
+Para cualquier pregunta o consulta, no dude en ponerse en contacto con el equipo de desarrollo a través de Slack o Discord.
+
+¡Gracias por ser parte de este emocionante proyecto!
