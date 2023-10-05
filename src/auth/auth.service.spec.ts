@@ -4,20 +4,20 @@ import { AuthService } from "./auth.service";
 describe("AuthService", () => {
 	let service: AuthService;
 
-	const mockJwtService = {
+	/* 	const mockJwtService = {
 		signAsync: jest.fn(),
 	};
 
 	const mockUserService = {
 		findOneByEmail: jest.fn(),
-	}; 
+	};  */
 
 	class MockUser {
 		validatePassword: jest.Mock;
-	  }
-	  
-	  const mockUser = new MockUser();
-	  mockUser.validatePassword = jest.fn();
+	}
+  
+	const mockUser = new MockUser();
+	mockUser.validatePassword = jest.fn();
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
