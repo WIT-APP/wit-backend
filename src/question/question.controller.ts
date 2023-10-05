@@ -5,7 +5,7 @@ import { CreateQuestionDto } from "./dto/create-question.dto";
 import { UpdateQuestionDto } from "./dto/update-question.dto";
 import { TypeCategory } from "./entities/question.enum";
 import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
-import { Public } from "src/auth/public.decorator";
+import { Public } from "../auth/public.decorator";
 
 
 @ApiTags("register-question")
