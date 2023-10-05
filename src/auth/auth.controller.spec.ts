@@ -63,7 +63,6 @@ describe("AuthController", () => {
 
 		controller.signIn(user);
 		expect(mockAuthService.signIn).toBeCalledWith(user.email, user.password);
-	
 	});
 });
 

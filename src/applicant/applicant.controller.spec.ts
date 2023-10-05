@@ -22,6 +22,8 @@ describe("ApplicantController", () => {
 		getUsersPreapproved: jest.fn(),
 		updateEstado: jest.fn(),
 		updateApplicant: jest.fn(),
+		getCountByEstado: jest.fn(),
+		getCountByCurso: jest.fn(),
 	};
 
 	const createApplicantDto: CreateApplicantDto = {
@@ -506,6 +508,40 @@ describe("ApplicantController", () => {
 	
 			expect(mockApplicantService.updateEstado).toHaveBeenCalledWith(id, updateApplicantDto);
 			expect(result).toBeDefined(); 
+		});
+	});
+
+	describe("getCountByEstado", () => {
+		it("should return the count by estado", async () => {
+			const mockCount = [{ estado: "EstadoA", count: 10 }, { estado: "EstadoB", count: 20 }];
+			mockApplicantService.getCountByEstado.mockResolvedValue(mockCount);
+	
+			const result = await controller.getCountByEstado();
+	
+			expect(mockApplicantService.getCountByEstado).toHaveBeenCalled();
+			expect(result).toEqual(mockCount);
+		});
+	});
+	describe("getCountByCurso", () => {
+		it("should return the count by curso", async () => {
+			const mockCount = [{ programa_cursar: "CursoA", count: 15 }, { programa_cursar: "CursoB", count: 25 }];
+			const mockEstado = "SomeEstado";
+			mockApplicantService.getCountByCurso.mockResolvedValue(mockCount);
+ 
+			const result = await controller.getCountByCurso(mockEstado);
+ 
+			expect(result).toEqual(mockCount);
+			expect(mockApplicantService.getCountByCurso).toHaveBeenCalledWith(mockEstado);
+		});
+
+		it("should handle no estado provided", async () => {
+			const mockCount = [{ programa_cursar: "CursoA", count: 15 }, { programa_cursar: "CursoB", count: 25 }];
+			mockApplicantService.getCountByCurso.mockResolvedValue(mockCount);
+	
+			const result = await controller.getCountByCurso();
+	
+			expect(result).toEqual(mockCount);
+			expect(mockApplicantService.getCountByCurso).toHaveBeenCalledWith(undefined);
 		});
 	});
 });
