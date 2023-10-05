@@ -231,21 +231,17 @@ export class ApplicantService {
 	remove(id: number) {
 		return `This action removes a #${id} applicant`;
 	}
+
+	async getCountByEstado():  Promise<{ estado: string; count: number }[]> {
+		const estados = await this.applicantRepository
+			.createQueryBuilder()
+			.select("estado")
+			.addSelect("COUNT(*) as count")
+			.groupBy("estado")
+			.getRawMany();
+		return estados.map((estado) => ({
+			estado: estado.estado,
+			count: parseInt(estado.count, 10),
+		}));
+	}
 }
-
-/* 
-  async searchByKeyword(keyword: string): Promise<Applicant[]> {
-    const applicants = await this.applicantRepository
-      .createQueryBuilder('applicant')
-      .where('applicant.nombre LIKE :keyword', { keyword: `%${keyword}%` })
-      .orWhere('applicant.apellidos LIKE :keyword', {
-        keyword: `%${keyword}%`,
-      })
-      .orWhere('applicant.correo_electronico LIKE :keyword', {
-        keyword: `%${keyword}%`,
-      })
-      .orWhere('applicant.telefono LIKE :keyword', { keyword: `%${keyword}%` })
-      .getMany();
-
-    return applicants;
-  } */

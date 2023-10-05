@@ -80,12 +80,10 @@ export class ApplicantController {
   	remove(@Param("id") id: string) {
     	return this.applicantService.remove(+id);
   	}
+	
+	@Get("/estado/count")
+  	async getCountByEstado() {
+  		return this.applicantService.getCountByEstado();
+  	}
+	
 }
-
-/*  @Get('search')
-  async searchByKeyword(
-	@Query('keyword') keyword: string,
-  ): Promise<Applicant[]> {
-	const applicants = await this.applicantService.searchByKeyword(keyword);
-	return applicants;
-  } */
