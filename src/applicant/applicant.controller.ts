@@ -45,11 +45,12 @@ export class ApplicantController {
   	}
 
   	// !! GET methods BY ONE
-
+	
   	@Get("id/:id")
   	async findOne(@Param("id") id: number) {
     	return await this.applicantService.findOneById(id);
   	}
+
 
   	@Get("email/:email")
   	async findOneByEmail(@Param("email") email: string) {
