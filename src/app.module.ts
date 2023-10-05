@@ -9,6 +9,7 @@ import { ApplicantModule } from "./applicant/applicant.module";
 import { QuestionModule } from "./question/question.module";
 import { InterviewModule } from "./interview/interview.module";
 import { InterviewQuestionModule } from "./interview-question/interview-question.module";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -26,6 +27,7 @@ import { InterviewQuestionModule } from "./interview-question/interview-question
 		QuestionModule,
 		InterviewModule,
 		InterviewQuestionModule,
+		AuthModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
