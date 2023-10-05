@@ -244,15 +244,21 @@ export class ApplicantService {
 			count: parseInt(estado.count, 10),
 		}));
 	}
-	async getCountByCurso():  Promise<{ programa_cursar: string; count: number }[]> {
-		const cursos = await this.applicantRepository
+	async getCountByCurso(estado?: string): Promise<{ programa_cursar: string; count: number }[]> {
+		let query = this.applicantRepository
 			.createQueryBuilder()
 			.select("programa_cursar")
 			.addSelect("COUNT(*) as count")
-			.groupBy("programa_cursar")
-			.getRawMany();
+			.groupBy("programa_cursar");
+
+		if (estado) {
+			query = query.where("estado = :estado", { estado });
+		}
+	
+		const cursos = await query.getRawMany();
+ 
 		return cursos.map((curso) => ({
-			programa_cursar: curso.programa_cursar, // Use the correct property name
+			programa_cursar: curso.programa_cursar,
 			count: parseInt(curso.count, 10),
 		}));
 	}

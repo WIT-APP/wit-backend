@@ -7,6 +7,7 @@ import {
 	Patch,
 	Param,
 	Delete,
+	Query,
 } from "@nestjs/common";
 import { ApplicantService } from "./applicant.service";
 import { CreateApplicantDto } from "./dto/create-applicant.dto";
@@ -94,9 +95,9 @@ export class ApplicantController {
   		return this.applicantService.getCountByEstado();
   	}
 	
-	@Get("/curso/count")
-  	async getCountByCurso() {
-  		return this.applicantService.getCountByCurso();
-  	}
+	  @Get("/curso/count")
+	  async getCountByCurso(@Query("estado") estado?: string) {
+		return this.applicantService.getCountByCurso(estado);
+	  }
 	
 }
