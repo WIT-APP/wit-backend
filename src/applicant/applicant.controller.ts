@@ -7,13 +7,14 @@ import {
 	Patch,
 	Param,
 	Delete,
+	Query,
 } from "@nestjs/common";
 import { ApplicantService } from "./applicant.service";
 import { CreateApplicantDto } from "./dto/create-applicant.dto";
 import { UpdateApplicantDto } from "./dto/update-applicant.dto";
 import { Applicant } from "./entities/applicant.entity";
 import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
-import { Public } from "src/auth/public.decorator";
+import { Public } from "../auth/public.decorator";
 
 @ApiTags("applicant")
 @ApiBearerAuth()
@@ -88,4 +89,15 @@ export class ApplicantController {
   	remove(@Param("id") id: string) {
     	return this.applicantService.remove(+id);
   	}
+	
+	@Get("/estado/count")
+  	async getCountByEstado() {
+  		return this.applicantService.getCountByEstado();
+  	}
+	
+	  @Get("/curso/count")
+	  async getCountByCurso(@Query("estado") estado?: string) {
+		return this.applicantService.getCountByCurso(estado);
+	  }
+	
 }

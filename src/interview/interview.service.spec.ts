@@ -4,8 +4,7 @@ import { CreateInterviewDto } from "./dto/create-interview.dto";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import Interview from "./entities/interview.entity";
 import {
-	InternalServerErrorException
-} from "@nestjs/common";
+	InternalServerErrorException} from "@nestjs/common";
 
 describe("InterviewService", () => {
 	let service: InterviewService;
@@ -137,6 +136,8 @@ describe("InterviewService", () => {
 
 			expect(result).toBe(createdInterview);
 		});
+		
+
 
 		it("should throw an InternalServerErrorException on error", async () => {
 			const applicant = 1;

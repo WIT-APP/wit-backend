@@ -15,7 +15,7 @@ import {
 	TipoEncontrarPrograma,
 } from "./entities/applicant.enums";
 import {
-	ForbiddenException,
+	BadRequestException,
 	HttpException,
 	HttpStatus,
 	NotFoundException,
@@ -36,7 +36,7 @@ describe("ApplicantService", () => {
 			innerJoin: jest.fn().mockReturnThis(),
 			groupBy: jest.fn().mockReturnThis(),
 			orderBy: jest.fn().mockReturnThis(),
-			getRawMany: jest.fn(),
+			getRawMany: jest.fn().mockResolvedValue([]),
 		})),
 	};
 	const createApplicantDto: CreateApplicantDto = {
@@ -243,12 +243,10 @@ describe("ApplicantService", () => {
 		});
 
 		it("should throw an error if create fails", async () => {
-			mockApplicantRepository.save.mockRejectedValue(
-				new Error("Failed to submit form."),
-			);
+			mockApplicantRepository.save.mockResolvedValue(null);
 
 			await expect(service.create(createApplicantDto)).rejects.toThrowError(
-				"Failed to submit form.",
+				BadRequestException,
 			);
 		});
 	});
@@ -262,10 +260,10 @@ describe("ApplicantService", () => {
 			expect(result).toBe(applicants);
 		});
 
-		it("should throw a ForbiddenException if find fails", async () => {
-			mockApplicantRepository.find.mockRejectedValue(new ForbiddenException());
+		it("should throw a NotFoundException if find fails", async () => {
+			mockApplicantRepository.find.mockResolvedValue(null);
 
-			await expect(service.findAll()).rejects.toThrowError(ForbiddenException);
+			await expect(service.findAll()).rejects.toThrowError(NotFoundException);
 		});
 	});
 
@@ -344,16 +342,41 @@ describe("ApplicantService", () => {
 		});
 
   
-		it("should throw a ConflictException if there is an error", async () => {
-			mockApplicantRepository.createQueryBuilder().getRawMany.mockRejectedValue(new Error());
+		it("should throw a BadRequest Exception if there is an error", async () => {
+			mockApplicantRepository.createQueryBuilder().getRawMany.mockResolvedValue(null);
 
-			await expect(service.getDuplicateEmails()).rejects.toThrowError(
+			await expect(service.getDuplicateEmails()).rejects.toThrowError(BadRequestException,
 			);
 			expect(mockApplicantRepository.createQueryBuilder().getRawMany).toHaveBeenCalled();
 		});
 	});
 
 	describe("getUsersPreapproved", () => {
+		it("should return pre-approved applicants", async () => {
+			const mockResult = [
+				{ correo_electronico: "email1@example.com", estado: "Aplicante", pais_de_residencia: "España" },
+				{ correo_electronico: "email2@example.com", estado: "Aplicante", pais_de_residencia: "España" },
+			];
+	
+			const mockUpdateQueryResult = { raw: [] }; 
+			mockApplicantRepository.query
+				.mockReturnValueOnce(mockResult)  
+				.mockReturnValueOnce(mockUpdateQueryResult); 
+
+			mockApplicantRepository.query.mockReturnValueOnce([
+				{ correo_electronico: "email1@example.com", estado: "Preaprobado", pais_de_residencia: "España" },
+				{ correo_electronico: "email2@example.com", estado: "Preaprobado", pais_de_residencia: "España" },
+			]);
+	
+			const result = await service.getUsersPreapproved();
+	
+			// Verify that the estado is updated to 'Preaprobado' for each applicant
+			expect(result).toEqual([
+				{ correo_electronico: "email1@example.com", estado: "Preaprobado", pais_de_residencia: "España" },
+				{ correo_electronico: "email2@example.com", estado: "Preaprobado", pais_de_residencia: "España" },
+			]);
+			expect(mockApplicantRepository.query).toHaveBeenCalledTimes(3); // Ensure the correct number of queries is made
+		});
 
 		it("should throw a NotFoundException if no preapproved applicants are found", async () => {
 			mockApplicantRepository.query.mockReturnValueOnce([]);
@@ -533,7 +556,6 @@ describe("ApplicantService", () => {
 
 			const result = await service.updateApplicant(id, updateApplicantDto);
 
-      
 			expect(result).toEqual(updatedApplicant);
 		});
   
@@ -617,7 +639,6 @@ describe("ApplicantService", () => {
 			mockApplicantRepository.save.mockResolvedValue(updatedApplicant);
 
 			const result = await service.updateApplicant(id, updateApplicantDto);
-
       
 			expect(result).toEqual(updatedApplicant);
 		});
@@ -685,6 +706,66 @@ describe("ApplicantService", () => {
 
 			await expect(service.updateApplicant(id, updateApplicantDto)).rejects.toThrow(Error);
 		});
+	});
+	describe("getCountByEstado", () => {
+		it("should return the count by estado", async () => {
+			const mockRawResult = [
+				{ estado: "Pending", count: 5 },
+				{ estado: "Approved", count: 10 },
+			];
+	
+			mockApplicantRepository.createQueryBuilder().select().addSelect().groupBy().getRawMany.mockResolvedValue(mockRawResult);
+	
+			const result = await service.getCountByEstado();
+	
+			expect(result).toEqual([
+				{ estado: "Pending", count: 5 },
+				{ estado: "Approved", count: 10 },
+			]);
+		});
+	});
+	describe("getCountByCurso", () => {
+		it("should return the count without estado", async () => {
+			const mockRawResult = [
+				{ programa_cursar: "Program A", count: 5 },
+				{ programa_cursar: "Program B", count: 10 },
+			];
+	
+			mockApplicantRepository.createQueryBuilder().select().addSelect().groupBy().getRawMany.mockResolvedValue(mockRawResult);
+	
+			const resultWithoutEstado = await service.getCountByCurso();
+	
+			expect(resultWithoutEstado).toEqual([
+				{ programa_cursar: "Program A", count: 5 },
+				{ programa_cursar: "Program B", count: 10 },
+			]);
+		});
+	
+		it("should return the count with estado", async () => {
+			const mockRawResult = [
+				{ programa_cursar: "Program A", count: 2 },
+				{ programa_cursar: "Program B", count: 5 },
+			];
+			const mockQueryBuilder = {
+				select: jest.fn().mockReturnThis(),
+				addSelect: jest.fn().mockReturnThis(),
+				innerJoin: jest.fn().mockReturnThis(),
+				groupBy: jest.fn().mockReturnThis(),
+				orderBy: jest.fn().mockReturnThis(),
+				where: jest.fn().mockReturnThis(),
+				getRawMany: jest.fn().mockResolvedValue(mockRawResult),
+			};
+			
+			mockApplicantRepository.createQueryBuilder.mockReturnValue(mockQueryBuilder);
+			
+			const resultWithEstado = await service.getCountByCurso("SomeEstado");
+			
+			expect(resultWithEstado).toEqual([
+				{ programa_cursar: "Program A", count: 2 },
+				{ programa_cursar: "Program B", count: 5 },
+			]);
+		});
+			
 	});
 });
 

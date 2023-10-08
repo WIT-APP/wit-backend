@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Query } from "@nestjs/common";
 import { InterviewQuestionService } from "./interview-question.service";
 import { CreateInterviewQuestionDto } from "./dto/create-interview-question.dto";
-import { UpdateInterviewQuestionDto } from "./dto/update-interview-question.dto";
 import {ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags} from "@nestjs/swagger";
 
 @ApiTags("interview-question")
@@ -30,15 +29,5 @@ export class InterviewQuestionController {
 	@Get(":id")
 	findOne(@Param("id") id: number) {
 		return this.interviewQuestionService.findOne(id);
-	}
-
-	@Patch(":id")
-	update(@Param("id") id: string, @Body() updateInterviewQuestionDto: UpdateInterviewQuestionDto) {
-		return this.interviewQuestionService.update(+id, updateInterviewQuestionDto);
-	}
-
-	@Delete(":id")
-	remove(@Param("id") id: string) {
-		return this.interviewQuestionService.remove(+id);
 	}
 }
