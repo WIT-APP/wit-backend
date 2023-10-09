@@ -127,6 +127,7 @@ Password demo: 1234
     <br>
     <sub>Alejandra Naranjo</sub>
   </div>
+  <br>
   <div style="max-width:116px;">
     <a href="https://github.com/carlos-saiz">
       <img src="https://avatars.githubusercontent.com/u/126065490?v=4" width="115" alt="Carlos Saiz">
@@ -134,6 +135,7 @@ Password demo: 1234
     <br>
     <sub>Carlos Saiz</sub>
   </div>
+  <br>
   <div style="display:flex flex-wrap:wrap justify-content:flex-start !important">
   <div style="width:116px;">
     <a href="https://github.com/Angela-GM">
@@ -142,6 +144,7 @@ Password demo: 1234
     <br>
     <sub>Angela Garcia</sub>
   </div>
+  <br>
   <div style="width:116px;">
     <a href="https://github.com/JFCTito">
       <img img src="https://avatars.githubusercontent.com/u/125603610?v=4" width="115" alt="Jesús Fajardo">
@@ -149,13 +152,15 @@ Password demo: 1234
     <br>
     <sub>Jesús Fajardo</sub>
   </div>
+  <br>
   <div style="width:116px;">
     <a href="https://github.com/denizozerdogan">
-     <img src="https://avatars.githubusercontent.com/u/131254999?v=4" width="115">
+     <img src="https://ca.slack-edge.com/T052N58V0JG-U054J81JKUY-792817fcd7ed-512" width="115">
     </a>
     <br>
     <sub>Deniz Ozerdogan</sub>
   </div>
+  <br>
   <div style="width:116px;">
     <a href="https://github.com/Federicojaviermartino">
      <img src="https://avatars.githubusercontent.com/u/122879094?v=4" width="115">
@@ -184,13 +189,15 @@ Agradecemos especialmente a Factoría F5 y todo su equipo, tambien a nuestro equ
     <br>
     <sub>Factoría F5</sub>
   </div>
+  <br>
   <div style="width:116px;">
     <a href="https://github.com/amrhefny87">
-     <img src="https://avatars.githubusercontent.com/u/82093081?v=4" width="115">
+     <img src="https://media.licdn.com/dms/image/C4D03AQE0p0e5mTdPnQ/profile-displayphoto-shrink_800_800/0/1628093746145?e=1702512000&v=beta&t=IlQt_sO0x5YG2-mYj6Wfz7Q4HVASEH0B2zf2nCpdMDY" width="115">
     </a>
     <br>
     <sub>Amr Hefny</sub>
   </div>
+  <br>
   <div style="width:116px;">
     <a href="https://github.com/raulf5">
      <img src="https://avatars.githubusercontent.com/u/102666302?v=4" width="115">
